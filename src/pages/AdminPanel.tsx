@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useFirebaseSetup } from '../hooks/useFirebaseSetup';
 import { 
   Package, 
@@ -19,12 +19,14 @@ import {
   MessageCircle,
   Star
 } from 'lucide-react';
+import AdminLogin from '../components/AdminLogin';
 import { useFirestore } from '../hooks/useFirestore';
 import { Door, ContactForm, BusinessInfo } from '../types';
 import { useImageUpload } from '../hooks/useImageUpload';
 
 const AdminPanel: React.FC = () => {
   const { isAdmin, logout } = useAuth();
+  const [showLogin, setShowLogin] = useState(!isAdmin);
   const [activeTab, setActiveTab] = useState('catalog');
   
   // Auto-setup Firebase collections
@@ -35,8 +37,18 @@ const AdminPanel: React.FC = () => {
   const { data: reviews, loading: reviewsLoading, updateItem: updateReview, deleteItem: deleteReview } = useFirestore<Review>('reviews');
   const { data: businessSettings, loading: businessLoading, updateItem: updateBusiness } = useFirestore<BusinessInfo>('business');
 
+  const handleLoginSuccess = () => {
+    setShowLogin(false);
+  };
+
   if (!isAdmin) {
-    return <Navigate to="/" replace />;
+    return (
+      <AdminLogin 
+        isOpen={showLogin} 
+        onClose={() => setShowLogin(false)}
+        onLoginSuccess={handleLoginSuccess}
+      />
+    );
   }
 
   const tabs = [

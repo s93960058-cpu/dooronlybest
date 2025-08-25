@@ -6,9 +6,10 @@ import { useAuth } from '../contexts/AuthContext';
 interface AdminLoginProps {
   isOpen: boolean;
   onClose: () => void;
+  onLoginSuccess?: () => void;
 }
 
-const AdminLogin: React.FC<AdminLoginProps> = ({ isOpen, onClose }) => {
+const AdminLogin: React.FC<AdminLoginProps> = ({ isOpen, onClose, onLoginSuccess }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -24,10 +25,14 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ isOpen, onClose }) => {
       (username === 'TALI' && password === '1234ADMIN');
     
     if (validCredentials && login(username)) {
-      onClose();
       setUsername('');
       setPassword('');
       setError('');
+      if (onLoginSuccess) {
+        onLoginSuccess();
+      } else {
+        onClose();
+      }
       navigate('/admin');
     } else {
       setError('שם משתמש או סיסמה שגויים');
@@ -37,19 +42,21 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 min-h-screen">
       <div className="bg-white rounded-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-xl font-bold flex items-center">
             <Lock className="w-5 h-5 ml-2" />
             כניסת מנהל
           </h3>
-          <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-gray-700"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          {onClose !== onLoginSuccess && (
+            <button
+              onClick={onClose}
+              className="text-gray-500 hover:text-gray-700"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          )}
         </div>
 
         <form onSubmit={handleSubmit}>
