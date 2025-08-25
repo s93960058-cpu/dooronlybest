@@ -26,7 +26,6 @@ import { useImageUpload } from '../hooks/useImageUpload';
 
 const AdminPanel: React.FC = () => {
   const { isAdmin, logout } = useAuth();
-  const [showLogin, setShowLogin] = useState(true);
   const [activeTab, setActiveTab] = useState('catalog');
   
   // Auto-setup Firebase collections
@@ -37,17 +36,18 @@ const AdminPanel: React.FC = () => {
   const { data: reviews, loading: reviewsLoading, updateItem: updateReview, deleteItem: deleteReview } = useFirestore<Review>('reviews');
   const { data: businessSettings, loading: businessLoading, updateItem: updateBusiness } = useFirestore<BusinessInfo>('business');
 
-  const handleLoginSuccess = () => {
-    // No need to set showLogin to false, the component will re-render with isAdmin = true
-  };
-
-  if (!isAdmin && showLogin) {
+  // If not admin, show login screen
+  if (!isAdmin) {
     return (
-      <AdminLogin 
-        isOpen={true} 
-        onClose={() => {}} // No close option for main admin route
-        onLoginSuccess={handleLoginSuccess}
-      />
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
+          <AdminLogin 
+            isOpen={true} 
+            onClose={() => {}} 
+            onLoginSuccess={() => {}}
+          />
+        </div>
+      </div>
     );
   }
 
