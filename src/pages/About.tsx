@@ -12,7 +12,7 @@ const About: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>אודות Only Best - מתמחים בדלתות איכות מ-2010</title>
+        <title>אודות Only Best -הכי טוב לבית שלך</title>
         <meta name="description" content="Only Best - חברה מובילה בתחום הדלתות מאז 2010. מתמחים בדלתות פלדה, עץ, זכוכית וביטחון. התקנה מקצועית, אחריות מלאה ושירות אמין." />
         <meta name="keywords" content="אודות Only Best, חברת דלתות, התקנת דלתות, ערד, מקצועיות, ניסיון" />
         <meta property="og:title" content="אודות Only Best - מתמחים בדלתות איכות מ-2010" />
@@ -28,7 +28,7 @@ const About: React.FC = () => {
             אודות Only Best
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            מאז 2010 אנחנו מספקים פתרונות דלתות מתקדמים ואיכותיים לבתים ולעסקים בכל הארץ
+            מאז 2025 אנחנו מספקים פתרונות דלתות מתקדמים ואיכותיים לבתים ולעסקים בכל הארץ
           </p>
         </div>
 
@@ -42,8 +42,8 @@ const About: React.FC = () => {
                 עם שירות מקצועי ויחס אישי לכל לקוח.
               </p>
               <p>
-                עם יותר מ-15 שנות ניסיון בתחום, אנחנו מתמחים בכל סוגי הדלתות - מדלתות פנימיות עדינות 
-                ועד דלתות ביטחון מתקדמות. הצוות המקצועי שלנו עובר הכשרה מתמדת כדי להבטיח 
+                עם הדלתות הכי איכותיות בשוק, אנחנו מתמחים בכל סוגי הדלתות - מדלתות פנימיות עדינות 
+                ועד דלתות מעוצבות. הצוות המקצועי שלנו זמין כדי להבטיח 
                 את השירות הטוב ביותר.
               </p>
               <p>
@@ -76,7 +76,7 @@ const About: React.FC = () => {
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-2">שירות אישי</h3>
                   <p className="text-gray-600">
-                    כל לקוח מקבל יחס אישי ויעוץ מקצועי להתאמת הפתרון המושלם לצרכיו
+                 זמינים תמיד לתת מענה באהבה גדןלה
                   </p>
                 </div>
               </div>
@@ -112,13 +112,10 @@ const About: React.FC = () => {
         <div className="bg-orange-50 rounded-xl p-8 mb-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl md:text-4xl font-bold text-orange-800 mb-2">15+</div>
+              <div className="text-3xl md:text-4xl font-bold text-orange-800 mb-2">1+</div>
               <div className="text-gray-600">שנות ניסיון</div>
             </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-orange-800 mb-2">1,000+</div>
-              <div className="text-gray-600">דלתות הותקנו</div>
-            </div>
+            
             <div>
               <div className="text-3xl md:text-4xl font-bold text-orange-800 mb-2">500+</div>
               <div className="text-gray-600">לקוחות מרוצים</div>
