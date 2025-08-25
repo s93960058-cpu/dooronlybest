@@ -27,7 +27,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const login = (username: string): boolean => {
-    if (username.trim() === 'shay053713') {
+    if (username.trim() === 'shay053713' || username.trim() === 'TALI') {
       setIsAdmin(true);
       localStorage.setItem('onlyBestAdmin', 'true');
       console.log('Admin login successful');

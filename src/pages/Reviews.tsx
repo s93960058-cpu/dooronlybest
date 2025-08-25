@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Star, Plus } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
+import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { db } from '../config/firebase';
 import ReviewCard from '../components/ReviewCard';
-import { reviewsData } from '../data/reviews';
+import { useFirestore } from '../hooks/useFirestore';
+import { Review } from '../types';
 
 const Reviews: React.FC = () => {
   const [showAddReview, setShowAddReview] = useState(false);
@@ -12,15 +15,28 @@ const Reviews: React.FC = () => {
     comment: ''
   });
 
-  const approvedReviews = reviewsData.filter(review => review.approved);
+  const { data: reviews, loading } = useFirestore<Review>('reviews');
+  const approvedReviews = reviews.filter(review => review.approved === true);
   const averageRating = approvedReviews.reduce((sum, review) => sum + review.rating, 0) / approvedReviews.length;
 
-  const handleSubmitReview = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('New review submitted:', newReview);
-    alert('תודה על הביקורת! הביקורת תפורסם לאחר אישור');
-    setNewReview({ name: '', rating: 5, comment: '' });
-    setShowAddReview(false);
+    
+    try {
+      await addDoc(collection(db, 'reviews'), {
+        ...newReview,
+        date: new Date().toISOString().split('T')[0],
+        approved: null, // Pending approval
+        created_at: Timestamp.now()
+      });
+      
+      alert('תודה על הביקורת! הביקורת תפורסם לאחר אישור');
+      setNewReview({ name: '', rating: 5, comment: '' });
+      setShowAddReview(false);
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      alert('שגיאה בשליחת הביקורת. אנא נסו שוב.');
+    }
   };
 
   const renderStars = (rating: number, size: 'sm' | 'lg' = 'sm') => {
@@ -58,17 +74,29 @@ const Reviews: React.FC = () => {
           </p>
 
           {/* Rating Summary */}
-          <div className="bg-orange-50 rounded-xl p-8 max-w-md mx-auto">
-            <div className="text-4xl font-bold text-orange-800 mb-2">
-              {averageRating.toFixed(1)}
+          {loading ? (
+            <div className="text-center py-8">
+              <p className="text-gray-600">טוען ביקורות...</p>
             </div>
-            <div className="flex justify-center mb-3">
-              {renderStars(Math.round(averageRating), 'lg')}
+          ) : approvedReviews.length > 0 ? (
+            <div className="bg-orange-50 rounded-xl p-8 max-w-md mx-auto">
+              <div className="text-4xl font-bold text-orange-800 mb-2">
+                {averageRating.toFixed(1)}
+              </div>
+              <div className="flex justify-center mb-3">
+                {renderStars(Math.round(averageRating), 'lg')}
+              </div>
+              <div className="text-gray-600">
+                על סך {approvedReviews.length} ביקורות
+              </div>
             </div>
-            <div className="text-gray-600">
-              על סך {approvedReviews.length} ביקורות
+          ) : (
+            <div className="bg-orange-50 rounded-xl p-8 max-w-md mx-auto">
+              <div className="text-gray-600">
+                עדיין אין ביקורות
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Add Review Button */}
@@ -83,11 +111,21 @@ const Reviews: React.FC = () => {
         </div>
 
         {/* Reviews Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {approvedReviews.map((review) => (
-            <ReviewCard key={review.id} review={review} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="text-center py-8">
+            <p className="text-gray-600">טוען ביקורות...</p>
+          </div>
+        ) : approvedReviews.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {approvedReviews.map((review) => (
+              <ReviewCard key={review.id} review={review} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-8">
+            <p className="text-xl text-gray-600">עדיין אין ביקורות מאושרות</p>
+          </div>
+        )}
 
         {/* Add Review Modal */}
         {showAddReview && (

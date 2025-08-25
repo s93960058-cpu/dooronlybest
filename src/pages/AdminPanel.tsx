@@ -30,7 +30,8 @@ const AdminPanel: React.FC = () => {
   useFirebaseSetup();
   
   const { data: doors, loading: doorsLoading, addItem: addDoor, updateItem: updateDoor, deleteItem: deleteDoor } = useFirestore<Door>('doors');
-  const { data: contacts, loading: contactsLoading } = useFirestore<ContactForm>('contacts');
+  const { data: contacts, loading: contactsLoading, updateItem: updateContact, deleteItem: deleteContact } = useFirestore<ContactForm>('contacts');
+  const { data: reviews, loading: reviewsLoading, updateItem: updateReview, deleteItem: deleteReview } = useFirestore<Review>('reviews');
   const { data: businessSettings, loading: businessLoading, updateItem: updateBusiness } = useFirestore<BusinessInfo>('business');
 
   if (!isAdmin) {
@@ -40,6 +41,7 @@ const AdminPanel: React.FC = () => {
   const tabs = [
     { id: 'catalog', name: 'ניהול קטלוג', icon: Package },
     { id: 'contacts', name: 'פניות לקוחות', icon: MessageSquare },
+    { id: 'reviews', name: 'ניהול ביקורות', icon: Star },
     { id: 'settings', name: 'הגדרות עסק', icon: Settings }
   ];
 
@@ -103,6 +105,16 @@ const AdminPanel: React.FC = () => {
               <ContactsManager 
                 contacts={contacts} 
                 loading={contactsLoading}
+                onUpdate={updateContact}
+                onDelete={deleteContact}
+              />
+            )}
+            {activeTab === 'reviews' && (
+              <ReviewsManager 
+                reviews={reviews} 
+                loading={reviewsLoading}
+                onUpdate={updateReview}
+                onDelete={deleteReview}
               />
             )}
             {activeTab === 'settings' && (
@@ -519,7 +531,9 @@ const DoorFormModal: React.FC<{
 const ContactsManager: React.FC<{ 
   contacts: ContactForm[];
   loading: boolean;
-}> = ({ contacts, loading }) => {
+  onUpdate: (id: string, updates: Partial<ContactForm>) => void;
+  onDelete: (id: string) => void;
+}> = ({ contacts, loading, onUpdate, onDelete }) => {
   const [filter, setFilter] = useState<'all' | 'door_specific' | 'general'>('all');
   
   const filteredContacts = contacts.filter(contact => {
@@ -528,6 +542,26 @@ const ContactsManager: React.FC<{
     if (filter === 'general') return !contact.inquiry_type || contact.inquiry_type !== 'door_specific';
     return true;
   });
+
+  const handleStatusUpdate = async (contactId: string, newStatus: 'new' | 'contacted' | 'closed') => {
+    try {
+      await onUpdate(contactId, { status: newStatus });
+      alert('הסטטוס עודכן בהצלחה!');
+    } catch (error) {
+      alert('שגיאה בעדכון הסטטוס');
+    }
+  };
+
+  const handleDelete = async (contactId: string, contactName: string) => {
+    if (window.confirm(`האם אתה בטוח שברצונך למחוק את הפנייה של ${contactName}?`)) {
+      try {
+        await onDelete(contactId);
+        alert('הפנייה נמחקה בהצלחה!');
+      } catch (error) {
+        alert('שגיאה במחיקת הפנייה');
+      }
+    }
+  };
 
   if (loading) {
     return (
@@ -569,8 +603,8 @@ const ContactsManager: React.FC<{
             אין פניות עדיין
           </div>
         ) : (
-          filteredContacts.map((contact, index) => (
-            <div key={index} className="border rounded-lg p-6 hover:shadow-md transition-shadow">
+          filteredContacts.map((contact) => (
+            <div key={contact.id} className="border rounded-lg p-6 hover:shadow-md transition-shadow">
               {/* Header with status and type */}
               <div className="flex justify-between items-start mb-4">
                 <div className="flex gap-2">
@@ -579,14 +613,19 @@ const ContactsManager: React.FC<{
                       פנייה לדלת ספציפית
                     </span>
                   )}
-                  <span className={`text-xs px-2 py-1 rounded-full ${
-                    contact.status === 'new' ? 'bg-green-100 text-green-800' :
-                    contact.status === 'contacted' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-gray-100 text-gray-800'
-                  }`}>
-                    {contact.status === 'new' ? 'חדש' : 
-                     contact.status === 'contacted' ? 'נוצר קשר' : 'סגור'}
-                  </span>
+                  <select
+                    value={contact.status || 'new'}
+                    onChange={(e) => handleStatusUpdate(contact.id!, e.target.value as 'new' | 'contacted' | 'closed')}
+                    className={`text-xs px-2 py-1 rounded-full border-none ${
+                      contact.status === 'new' ? 'bg-green-100 text-green-800' :
+                      contact.status === 'contacted' ? 'bg-yellow-100 text-yellow-800' :
+                      'bg-gray-100 text-gray-800'
+                    }`}
+                  >
+                    <option value="new">חדש</option>
+                    <option value="contacted">נוצר קשר</option>
+                    <option value="closed">סגור</option>
+                  </select>
                 </div>
                 <div className="text-sm text-gray-500">
                   {contact.created_at && new Date(contact.created_at.seconds * 1000).toLocaleDateString('he-IL')}
@@ -638,7 +677,7 @@ const ContactsManager: React.FC<{
               </div>
 
               {/* Quick actions */}
-              <div className="flex gap-2 mt-4 pt-4 border-t">
+              <div className="flex gap-2 mt-4 pt-4 border-t flex-wrap">
                 <a
                   href={`tel:${contact.phone}`}
                   className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center gap-1"
@@ -664,6 +703,180 @@ const ContactsManager: React.FC<{
                     אימייל
                   </a>
                 )}
+                <button
+                  onClick={() => handleDelete(contact.id!, contact.name)}
+                  className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm flex items-center gap-1"
+                >
+                  <Trash2 className="w-3 h-3" />
+                  מחק
+                </button>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+};
+
+// Reviews Manager Component
+const ReviewsManager: React.FC<{
+  reviews: Review[];
+  loading: boolean;
+  onUpdate: (id: string, updates: Partial<Review>) => void;
+  onDelete: (id: string) => void;
+}> = ({ reviews, loading, onUpdate, onDelete }) => {
+  const [filter, setFilter] = useState<'all' | 'pending' | 'approved' | 'rejected'>('all');
+  
+  const filteredReviews = reviews.filter(review => {
+    if (filter === 'all') return true;
+    if (filter === 'pending') return review.approved === undefined || review.approved === null;
+    if (filter === 'approved') return review.approved === true;
+    if (filter === 'rejected') return review.approved === false;
+    return true;
+  });
+
+  const handleApprove = async (reviewId: string) => {
+    try {
+      await onUpdate(reviewId, { approved: true });
+      alert('הביקורת אושרה בהצלחה!');
+    } catch (error) {
+      alert('שגיאה באישור הביקורת');
+    }
+  };
+
+  const handleReject = async (reviewId: string) => {
+    try {
+      await onUpdate(reviewId, { approved: false });
+      alert('הביקורת נדחתה');
+    } catch (error) {
+      alert('שגיאה בדחיית הביקורת');
+    }
+  };
+
+  const handleDelete = async (reviewId: string, reviewerName: string) => {
+    if (window.confirm(`האם אתה בטוח שברצונך למחוק את הביקורת של ${reviewerName}?`)) {
+      try {
+        await onDelete(reviewId);
+        alert('הביקורת נמחקה בהצלחה!');
+      } catch (error) {
+        alert('שגיאה במחיקת הביקורת');
+      }
+    }
+  };
+
+  const renderStars = (rating: number) => {
+    return Array.from({ length: 5 }, (_, index) => (
+      <Star
+        key={index}
+        className={`w-4 h-4 ${
+          index < rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
+        }`}
+      />
+    ));
+  };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="text-center">טוען ביקורות...</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-bold">ניהול ביקורות ({filteredReviews.length})</h2>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setFilter('all')}
+            className={`px-3 py-1 rounded-lg text-sm ${filter === 'all' ? 'bg-orange-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+          >
+            הכל ({reviews.length})
+          </button>
+          <button
+            onClick={() => setFilter('pending')}
+            className={`px-3 py-1 rounded-lg text-sm ${filter === 'pending' ? 'bg-orange-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+          >
+            ממתינות ({reviews.filter(r => r.approved === undefined || r.approved === null).length})
+          </button>
+          <button
+            onClick={() => setFilter('approved')}
+            className={`px-3 py-1 rounded-lg text-sm ${filter === 'approved' ? 'bg-orange-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+          >
+            מאושרות ({reviews.filter(r => r.approved === true).length})
+          </button>
+          <button
+            onClick={() => setFilter('rejected')}
+            className={`px-3 py-1 rounded-lg text-sm ${filter === 'rejected' ? 'bg-orange-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+          >
+            נדחו ({reviews.filter(r => r.approved === false).length})
+          </button>
+        </div>
+      </div>
+      
+      <div className="space-y-4">
+        {filteredReviews.length === 0 ? (
+          <div className="text-center text-gray-500 py-8">
+            אין ביקורות עדיין
+          </div>
+        ) : (
+          filteredReviews.map((review) => (
+            <div key={review.id} className="border rounded-lg p-6 hover:shadow-md transition-shadow">
+              {/* Header with status */}
+              <div className="flex justify-between items-start mb-4">
+                <div className="flex items-center gap-3">
+                  <h3 className="font-semibold text-lg">{review.name}</h3>
+                  <div className="flex">
+                    {renderStars(review.rating)}
+                  </div>
+                  <span className={`text-xs px-2 py-1 rounded-full ${
+                    review.approved === true ? 'bg-green-100 text-green-800' :
+                    review.approved === false ? 'bg-red-100 text-red-800' :
+                    'bg-yellow-100 text-yellow-800'
+                  }`}>
+                    {review.approved === true ? 'מאושר' : 
+                     review.approved === false ? 'נדחה' : 'ממתין לאישור'}
+                  </span>
+                </div>
+                <div className="text-sm text-gray-500">
+                  {new Date(review.date).toLocaleDateString('he-IL')}
+                </div>
+              </div>
+
+              {/* Review content */}
+              <div className="mb-4">
+                <p className="text-gray-700 leading-relaxed">{review.comment}</p>
+              </div>
+
+              {/* Actions */}
+              <div className="flex gap-2 pt-4 border-t">
+                {review.approved !== true && (
+                  <button
+                    onClick={() => handleApprove(review.id)}
+                    className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded text-sm flex items-center gap-1"
+                  >
+                    <Star className="w-4 h-4" />
+                    אשר
+                  </button>
+                )}
+                {review.approved !== false && (
+                  <button
+                    onClick={() => handleReject(review.id)}
+                    className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded text-sm flex items-center gap-1"
+                  >
+                    <X className="w-4 h-4" />
+                    דחה
+                  </button>
+                )}
+                <button
+                  onClick={() => handleDelete(review.id, review.name)}
+                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded text-sm flex items-center gap-1"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  מחק
+                </button>
               </div>
             </div>
           ))

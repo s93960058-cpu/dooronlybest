@@ -10,19 +10,27 @@ interface AdminLoginProps {
 
 const AdminLogin: React.FC<AdminLoginProps> = ({ isOpen, onClose }) => {
   const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (login(username)) {
+    
+    // Check credentials
+    const validCredentials = 
+      (username === 'shay053713' && password === 'admin123') ||
+      (username === 'TALI' && password === '1234ADMIN');
+    
+    if (validCredentials && login(username)) {
       onClose();
       setUsername('');
+      setPassword('');
       setError('');
       navigate('/admin');
     } else {
-      setError('שם משתמש שגוי');
+      setError('שם משתמש או סיסמה שגויים');
     }
   };
 
@@ -54,6 +62,20 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ isOpen, onClose }) => {
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              סיסמה
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
               required
             />
