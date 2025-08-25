@@ -91,7 +91,7 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center">
           <p className="text-gray-400">
-            © 2024 Only Best. כל הזכויות שמורות.
+            © 2025 שי מדלסי פיתוח אתרים . כל הזכויות שמורות.
           </p>
         </div>
       </div>
