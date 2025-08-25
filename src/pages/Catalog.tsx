@@ -147,7 +147,7 @@ const Catalog: React.FC = () => {
             <p className="text-xl text-gray-600">טוען דלתות...</p>
           </div>
         ) : filteredDoors.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredDoors.map((door) => (
               <DoorCard key={door.id} door={door} />
             ))}

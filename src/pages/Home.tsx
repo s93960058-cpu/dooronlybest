@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { MessageCircle, Shield, Award, Users, Phone } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { DoorCard } from '../components/DoorCard';
+import DoorCarousel from '../components/DoorCarousel';
 import ReviewCard from '../components/ReviewCard';
 import { reviewsData } from '../data/reviews';
 import { businessInfo as defaultBusinessInfo } from '../data/business';
@@ -96,17 +97,13 @@ const Home: React.FC = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {doorsLoading ? (
-              <div className="col-span-full text-center py-8">
-                <p className="text-gray-600">טוען דלתות...</p>
-              </div>
-            ) : (
-              featuredDoors.map((door) => (
-                <DoorCard key={door.id} door={door} />
-              ))
-            )}
-          </div>
+          {doorsLoading ? (
+            <div className="text-center py-8">
+              <p className="text-gray-600">טוען דלתות...</p>
+            </div>
+          ) : (
+            <DoorCarousel doors={featuredDoors} />
+          )}
           
           <div className="text-center mt-12">
             <Link
