@@ -16,7 +16,8 @@ import {
   Mail,
   Save,
   X,
-  MessageCircle
+  MessageCircle,
+  Star
 } from 'lucide-react';
 import { useFirestore } from '../hooks/useFirestore';
 import { Door, ContactForm, BusinessInfo } from '../types';
