@@ -43,6 +43,7 @@ const Home: React.FC = () => {
             "@type": "LocalBusiness",
             "name": "Only Best",
             "url": "https://onlybest.co.il",
+            "logo": "https://onlybest.co.il/image.png",
             "telephone": currentBusinessInfo.phone,
             "address": {
               "@type": "PostalAddress",
@@ -51,7 +52,7 @@ const Home: React.FC = () => {
               "addressCountry": "IL"
             },
             "openingHours": "Su-Th 09:00-18:00",
-            "image": ["https://onlybest.co.il/media/og-cover.webp"]
+            "image": ["https://onlybest.co.il/image.png"]
           })}
         </script>
       </Helmet>

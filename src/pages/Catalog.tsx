@@ -36,6 +36,10 @@ const Catalog: React.FC = () => {
         <title>קטלוג דלתות - Only Best | דלתות פלדה, עץ, זכוכית וביטחון</title>
         <meta name="description" content="עיינו בקטלוג הדלתות המקיף של Only Best. דלתות פלדה, עץ, זכוכית, ביטחון וממ״ד באיכות גבוהה. התקנה מקצועית ואחריות מלאה." />
         <meta name="keywords" content="קטלוג דלתות, דלתות פלדה, דלתות עץ, דלתות זכוכית, דלתות ביטחון, דלתות ממד" />
+        <meta property="og:title" content="קטלוג דלתות - Only Best" />
+        <meta property="og:description" content="עיינו בקטלוג הדלתות המקיף של Only Best. דלתות פלדה, עץ, זכוכית, ביטחון וממ״ד באיכות גבוהה." />
+        <meta property="og:image" content="/image.png" />
+        <meta property="og:type" content="website" />
       </Helmet>
 
       <div className="container mx-auto px-4 py-8">

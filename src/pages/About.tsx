@@ -15,6 +15,10 @@ const About: React.FC = () => {
         <title>אודות Only Best - מתמחים בדלתות איכות מ-2010</title>
         <meta name="description" content="Only Best - חברה מובילה בתחום הדלתות מאז 2010. מתמחים בדלתות פלדה, עץ, זכוכית וביטחון. התקנה מקצועית, אחריות מלאה ושירות אמין." />
         <meta name="keywords" content="אודות Only Best, חברת דלתות, התקנת דלתות, ערד, מקצועיות, ניסיון" />
+        <meta property="og:title" content="אודות Only Best - מתמחים בדלתות איכות מ-2010" />
+        <meta property="og:description" content="Only Best - חברה מובילה בתחום הדלתות מאז 2010. מתמחים בדלתות פלדה, עץ, זכוכית וביטחון." />
+        <meta property="og:image" content="/image.png" />
+        <meta property="og:type" content="website" />
       </Helmet>
 
       <div className="container mx-auto px-4 py-8">

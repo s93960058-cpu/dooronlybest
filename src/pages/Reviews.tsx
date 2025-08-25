@@ -41,6 +41,10 @@ const Reviews: React.FC = () => {
         <title>ביקורות לקוחות - Only Best | מה הלקוחות אומרים עלינו</title>
         <meta name="description" content={`ביקורות לקוחות אמיתיות על Only Best. דירוג ממוצע: ${averageRating.toFixed(1)} כוכבים. קראו מה הלקוחות שלנו אומרים על השירות והאיכות.`} />
         <meta name="keywords" content="ביקורות לקוחות, חוות דעת, Only Best, שביעות רצון, איכות שירות" />
+        <meta property="og:title" content="ביקורות לקוחות - Only Best" />
+        <meta property="og:description" content={`ביקורות לקוחות אמיתיות על Only Best. דירוג ממוצע: ${averageRating.toFixed(1)} כוכבים.`} />
+        <meta property="og:image" content="/image.png" />
+        <meta property="og:type" content="website" />
       </Helmet>
 
       <div className="container mx-auto px-4 py-8">

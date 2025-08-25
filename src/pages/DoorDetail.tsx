@@ -82,6 +82,10 @@ const DoorDetail: React.FC = () => {
         <title>{door.name} - Only Best | {door.short_description}</title>
         <meta name="description" content={`${door.name} - ${door.description}. מחיר: ${door.price ? '₪' + door.price.toLocaleString() : door.price_range}. התקנה מקצועית ואחריות מלאה.`} />
         <meta name="keywords" content={`${door.name}, ${door.tags.join(', ')}, ${door.category}, דלתות`} />
+        <meta property="og:title" content={`${door.name} - Only Best`} />
+        <meta property="og:description" content={door.description} />
+        <meta property="og:image" content={door.images[0]?.url || "/image.png"} />
+        <meta property="og:type" content="product" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

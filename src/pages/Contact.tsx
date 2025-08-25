@@ -68,6 +68,10 @@ const Contact: React.FC = () => {
         <title>צור קשר - Only Best | יעוץ מקצועי והצעת מחיר חינם</title>
         <meta name="description" content="צרו קשר עם Only Best לקבלת יעוץ מקצועי והצעת מחיר חינם. כתובת: יהודה 6, ערד. טלפון: 058-3522191. שעות פעילות: ראשון-חמישי 09:00-18:00" />
         <meta name="keywords" content="צור קשר, יעוץ דלתות, הצעת מחיר, Only Best, ערד" />
+        <meta property="og:title" content="צור קשר - Only Best" />
+        <meta property="og:description" content="צרו קשר עם Only Best לקבלת יעוץ מקצועי והצעת מחיר חינם. התקנה מקצועית ושירות מהיר." />
+        <meta property="og:image" content="/image.png" />
+        <meta property="og:type" content="website" />
       </Helmet>
 
       <div className="container mx-auto px-4 py-8">
