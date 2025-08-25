@@ -61,7 +61,7 @@ const Home: React.FC = () => {
       <section className="bg-gradient-to-r from-orange-800 to-orange-600 text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Only Best - הכי טוב בשבילך
+            Only Best - הכי טוב לבית שלך
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
             בחירה מדויקת, התקנה מקצועית, שירות מהיר
