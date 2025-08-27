@@ -47,12 +47,12 @@ const Header: React.FC = () => {
           {/* Logo */}
           <div 
             onClick={handleLogoClick}
-            className="flex items-center space-x-2 space-x-reverse cursor-pointer select-none group"
+            className="flex items-center space-x-2 space-x-reverse cursor-pointer select-none group logo-container"
           >
             <img 
               src="/image.png" 
               alt="Only Best Logo" 
-              className="w-12 h-12 object-contain transition-transform duration-200 group-hover:scale-110"
+              className="w-12 h-12 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12 drop-shadow-lg"
             />
             <span className="font-bold text-2xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Only Best</span>
             {logoClickCount > 0 && logoClickCount < 10 && (

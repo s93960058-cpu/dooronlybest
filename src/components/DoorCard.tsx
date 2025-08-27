@@ -36,7 +36,7 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
 
   return (
     <>
-      <div className="door-card group">
+      <div className="door-card group card-with-logo">
         {/* Image Section */}
         <div className="relative overflow-hidden">
           <img

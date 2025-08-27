@@ -151,9 +151,44 @@ body {
 
 /* Hero Section Styles */
 .hero-gradient {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+  position: relative;
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #1e40af 100%);
   background-size: 200% 200%;
   animation: gradient-shift 8s ease infinite;
+  overflow: hidden;
+}
+
+.hero-gradient::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background-image: url('/image.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.1;
+  animation: logo-float 6s ease-in-out infinite;
+  z-index: 0;
+}
+
+.hero-gradient > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes logo-float {
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    opacity: 0.1;
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.1) rotate(2deg);
+    opacity: 0.15;
+  }
 }
 
 @keyframes gradient-shift {
@@ -177,6 +212,69 @@ body {
   bottom: 2rem;
   right: 2rem;
   z-index: 50;
+}
+
+/* Logo Animation in Header */
+.logo-container {
+  position: relative;
+}
+
+.logo-container::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: logo-pulse 3s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes logo-pulse {
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.3;
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.1;
+  }
+}
+
+/* Animated Logo Background for Cards */
+.card-with-logo {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-with-logo::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 100px;
+  height: 100px;
+  background-image: url('/image.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.05;
+  animation: card-logo-rotate 20s linear infinite;
+  z-index: 0;
+}
+
+.card-with-logo > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes card-logo-rotate {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
 }
 
 /* Admin Panel Styles */
