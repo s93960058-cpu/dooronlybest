@@ -80,7 +80,6 @@ const DoorDetail: React.FC = () => {
     <>
       <Helmet>
         <title>{door.name} - Only Best | {door.short_description}</title>
-        <meta name="description" content={`${door.name} - ${door.description}. מחיר: ${door.price ? '₪' + door.price.toLocaleString() : door.price_range}. התקנה מקצועית ואחריות מלאה.`} />
         <meta name="keywords" content={`${door.name}, ${door.tags.join(', ')}, ${door.category}, דלתות`} />
         <meta property="og:title" content={`${door.name} - Only Best`} />
         <meta property="og:description" content={door.description} />
