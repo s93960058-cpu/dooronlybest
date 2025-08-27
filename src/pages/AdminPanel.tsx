@@ -17,16 +17,51 @@ import {
   Save,
   X,
   MessageCircle,
-  Star
+  Star,
+  Palette,
+  Type,
+  Globe,
+  Image,
+  FileText,
+  Users,
+  BarChart3,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 import AdminLogin from '../components/AdminLogin';
 import { useFirestore } from '../hooks/useFirestore';
-import { Door, ContactForm, BusinessInfo } from '../types';
+import { Door, ContactForm, BusinessInfo, Review } from '../types';
 import { useImageUpload } from '../hooks/useImageUpload';
+
+// Site Settings Interface
+interface SiteSettings {
+  id?: string;
+  site_title: string;
+  site_description: string;
+  hero_title: string;
+  hero_subtitle: string;
+  primary_color: string;
+  secondary_color: string;
+  accent_color: string;
+  font_family: string;
+  logo_url?: string;
+  favicon_url?: string;
+  about_title: string;
+  about_description: string;
+  contact_title: string;
+  contact_description: string;
+  footer_text: string;
+  meta_keywords: string;
+  social_facebook?: string;
+  social_instagram?: string;
+  social_whatsapp?: string;
+  created_at?: any;
+  updated_at?: any;
+}
 
 const AdminPanel: React.FC = () => {
   const { isAdmin, logout } = useAuth();
-  const [activeTab, setActiveTab] = useState('catalog');
+  const [activeTab, setActiveTab] = useState('dashboard');
   
   // Auto-setup Firebase collections
   useFirebaseSetup();
@@ -35,12 +70,13 @@ const AdminPanel: React.FC = () => {
   const { data: contacts, loading: contactsLoading, updateItem: updateContact, deleteItem: deleteContact } = useFirestore<ContactForm>('contacts');
   const { data: reviews, loading: reviewsLoading, updateItem: updateReview, deleteItem: deleteReview } = useFirestore<Review>('reviews');
   const { data: businessSettings, loading: businessLoading, updateItem: updateBusiness } = useFirestore<BusinessInfo>('business');
+  const { data: siteSettings, loading: siteLoading, addItem: addSiteSettings, updateItem: updateSiteSettings } = useFirestore<SiteSettings>('site_settings');
 
   // If not admin, show login screen
   if (!isAdmin) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+        <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
           <AdminLogin 
             isOpen={true} 
             onClose={() => {}} 
@@ -52,22 +88,48 @@ const AdminPanel: React.FC = () => {
   }
 
   const tabs = [
+    { id: 'dashboard', name: 'לוח בקרה', icon: BarChart3 },
     { id: 'catalog', name: 'ניהול קטלוג', icon: Package },
     { id: 'contacts', name: 'פניות לקוחות', icon: MessageSquare },
     { id: 'reviews', name: 'ניהול ביקורות', icon: Star },
-    { id: 'settings', name: 'הגדרות עסק', icon: Settings }
+    { id: 'business', name: 'הגדרות עסק', icon: Settings },
+    { id: 'site', name: 'עיצוב ותוכן', icon: Palette },
+    { id: 'seo', name: 'SEO ושיווק', icon: Globe }
   ];
 
+  // Dashboard Statistics
+  const stats = {
+    totalDoors: doors.length,
+    activeDoors: doors.filter(d => d.is_active).length,
+    totalContacts: contacts.length,
+    newContacts: contacts.filter(c => c.status === 'new').length,
+    totalReviews: reviews.length,
+    approvedReviews: reviews.filter(r => r.approved === true).length,
+    averageRating: reviews.filter(r => r.approved === true).length > 0 
+      ? (reviews.filter(r => r.approved === true).reduce((sum, r) => sum + r.rating, 0) / reviews.filter(r => r.approved === true).length).toFixed(1)
+      : '0'
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
+      <div className="bg-white shadow-lg border-b border-gray-200">
+        <div className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-gray-900">פאנל ניהול - Only Best</h1>
+            <div className="flex items-center gap-4">
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-xl">
+                <Settings className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  פאנל ניהול Only Best
+                </h1>
+                <p className="text-gray-600">ניהול מלא של האתר והעסק</p>
+              </div>
+            </div>
             <button
               onClick={logout}
-              className="flex items-center space-x-2 space-x-reverse text-red-600 hover:text-red-800"
+              className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               <LogOut className="w-5 h-5" />
               <span>יציאה</span>
@@ -77,10 +139,10 @@ const AdminPanel: React.FC = () => {
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-md p-4">
+            <div className="bg-white rounded-2xl shadow-xl p-6 sticky top-8">
               <nav className="space-y-2">
                 {tabs.map((tab) => {
                   const Icon = tab.icon;
@@ -88,14 +150,14 @@ const AdminPanel: React.FC = () => {
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`w-full flex items-center space-x-3 space-x-reverse px-4 py-3 rounded-lg text-right transition-colors duration-200 ${
+                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-right transition-all duration-200 ${
                         activeTab === tab.id
-                          ? 'bg-orange-100 text-orange-800 font-semibold'
-                          : 'text-gray-700 hover:bg-gray-100'
+                          ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+                          : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
                       }`}
                     >
                       <Icon className="w-5 h-5" />
-                      <span>{tab.name}</span>
+                      <span className="font-medium">{tab.name}</span>
                     </button>
                   );
                 })}
@@ -104,7 +166,8 @@ const AdminPanel: React.FC = () => {
           </div>
 
           {/* Main Content */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-4">
+            {activeTab === 'dashboard' && <DashboardView stats={stats} />}
             {activeTab === 'catalog' && (
               <CatalogManager 
                 doors={doors} 
@@ -130,16 +193,480 @@ const AdminPanel: React.FC = () => {
                 onDelete={deleteReview}
               />
             )}
-            {activeTab === 'settings' && (
+            {activeTab === 'business' && (
               <BusinessSettings 
                 settings={businessSettings[0]} 
                 loading={businessLoading}
                 onUpdate={updateBusiness} 
               />
             )}
+            {activeTab === 'site' && (
+              <SiteDesignSettings 
+                settings={siteSettings[0]} 
+                loading={siteLoading}
+                onAdd={addSiteSettings}
+                onUpdate={updateSiteSettings} 
+              />
+            )}
+            {activeTab === 'seo' && (
+              <SEOSettings 
+                settings={siteSettings[0]} 
+                loading={siteLoading}
+                onAdd={addSiteSettings}
+                onUpdate={updateSiteSettings} 
+              />
+            )}
           </div>
         </div>
       </div>
+    </div>
+  );
+};
+
+// Dashboard View Component
+const DashboardView: React.FC<{ stats: any }> = ({ stats }) => {
+  return (
+    <div className="space-y-8">
+      <div className="bg-white rounded-2xl shadow-xl p-8">
+        <h2 className="text-2xl font-bold mb-6 text-gray-900">סקירה כללית</h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-6 rounded-xl text-white">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-blue-100">סה"כ דלתות</p>
+                <p className="text-3xl font-bold">{stats.totalDoors}</p>
+              </div>
+              <Package className="w-8 h-8 text-blue-200" />
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-r from-green-500 to-green-600 p-6 rounded-xl text-white">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-green-100">דלתות פעילות</p>
+                <p className="text-3xl font-bold">{stats.activeDoors}</p>
+              </div>
+              <Eye className="w-8 h-8 text-green-200" />
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-r from-purple-500 to-purple-600 p-6 rounded-xl text-white">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-purple-100">פניות חדשות</p>
+                <p className="text-3xl font-bold">{stats.newContacts}</p>
+              </div>
+              <MessageSquare className="w-8 h-8 text-purple-200" />
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-r from-amber-500 to-amber-600 p-6 rounded-xl text-white">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-amber-100">דירוג ממוצע</p>
+                <p className="text-3xl font-bold">{stats.averageRating}</p>
+              </div>
+              <Star className="w-8 h-8 text-amber-200" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Recent Activity */}
+      <div className="bg-white rounded-2xl shadow-xl p-8">
+        <h3 className="text-xl font-bold mb-4 text-gray-900">פעילות אחרונה</h3>
+        <div className="space-y-4">
+          <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-xl">
+            <div className="bg-blue-600 p-2 rounded-lg">
+              <Package className="w-4 h-4 text-white" />
+            </div>
+            <div>
+              <p className="font-medium text-gray-900">עודכן קטלוג הדלתות</p>
+              <p className="text-sm text-gray-600">לפני 2 שעות</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-4 p-4 bg-green-50 rounded-xl">
+            <div className="bg-green-600 p-2 rounded-lg">
+              <MessageSquare className="w-4 h-4 text-white" />
+            </div>
+            <div>
+              <p className="font-medium text-gray-900">התקבלה פנייה חדשה</p>
+              <p className="text-sm text-gray-600">לפני 4 שעות</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Site Design Settings Component
+const SiteDesignSettings: React.FC<{
+  settings?: SiteSettings;
+  loading: boolean;
+  onAdd: (settings: Omit<SiteSettings, 'id'>) => void;
+  onUpdate: (id: string, updates: Partial<SiteSettings>) => void;
+}> = ({ settings, loading, onAdd, onUpdate }) => {
+  const [formData, setFormData] = useState({
+    site_title: settings?.site_title || 'Only Best - הכי טוב לבית שלך',
+    site_description: settings?.site_description || 'מתמחים בדלתות איכות עם התקנה מקצועית ושירות מהיר',
+    hero_title: settings?.hero_title || 'Only Best - הכי טוב לבית שלך',
+    hero_subtitle: settings?.hero_subtitle || 'בחירה מדויקת, התקנה מקצועית, שירות מהיר',
+    primary_color: settings?.primary_color || '#1e40af',
+    secondary_color: settings?.secondary_color || '#64748b',
+    accent_color: settings?.accent_color || '#f59e0b',
+    font_family: settings?.font_family || 'Inter',
+    about_title: settings?.about_title || 'אודות Only Best',
+    about_description: settings?.about_description || 'חברה מובילה בתחום הדלתות מאז 2010',
+    contact_title: settings?.contact_title || 'צרו קשר',
+    contact_description: settings?.contact_description || 'נשמח לעזור לכם למצוא את הדלת המושלמת',
+    footer_text: settings?.footer_text || '© 2025 Only Best. כל הזכויות שמורות.',
+    meta_keywords: settings?.meta_keywords || 'דלתות, דלת פלדה, דלת עץ, דלת ביטחון, התקנת דלתות'
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      if (settings?.id) {
+        await onUpdate(settings.id, formData);
+      } else {
+        await onAdd(formData);
+      }
+      alert('ההגדרות נשמרו בהצלחה!');
+    } catch (error) {
+      alert('שגיאה בשמירת ההגדרות');
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-2xl shadow-xl p-8">
+        <div className="text-center">טוען הגדרות...</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-2xl shadow-xl p-8">
+      <h2 className="text-2xl font-bold mb-6 text-gray-900 flex items-center gap-3">
+        <Palette className="w-6 h-6 text-blue-600" />
+        עיצוב ותוכן האתר
+      </h2>
+      
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Site Info */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              <Globe className="w-4 h-4 inline ml-1" />
+              כותרת האתר
+            </label>
+            <input
+              type="text"
+              value={formData.site_title}
+              onChange={(e) => setFormData(prev => ({ ...prev, site_title: e.target.value }))}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              <FileText className="w-4 h-4 inline ml-1" />
+              תיאור האתר
+            </label>
+            <input
+              type="text"
+              value={formData.site_description}
+              onChange={(e) => setFormData(prev => ({ ...prev, site_description: e.target.value }))}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+            />
+          </div>
+        </div>
+
+        {/* Hero Section */}
+        <div className="border-t pt-6">
+          <h3 className="text-lg font-semibold mb-4 text-gray-800">חלק עליון (Hero)</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">כותרת ראשית</label>
+              <input
+                type="text"
+                value={formData.hero_title}
+                onChange={(e) => setFormData(prev => ({ ...prev, hero_title: e.target.value }))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">כותרת משנה</label>
+              <input
+                type="text"
+                value={formData.hero_subtitle}
+                onChange={(e) => setFormData(prev => ({ ...prev, hero_subtitle: e.target.value }))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Colors */}
+        <div className="border-t pt-6">
+          <h3 className="text-lg font-semibold mb-4 text-gray-800">צבעי האתר</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">צבע ראשי</label>
+              <div className="flex items-center gap-3">
+                <input
+                  type="color"
+                  value={formData.primary_color}
+                  onChange={(e) => setFormData(prev => ({ ...prev, primary_color: e.target.value }))}
+                  className="w-12 h-10 border border-gray-300 rounded cursor-pointer"
+                />
+                <input
+                  type="text"
+                  value={formData.primary_color}
+                  onChange={(e) => setFormData(prev => ({ ...prev, primary_color: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 flex-1"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">צבע משני</label>
+              <div className="flex items-center gap-3">
+                <input
+                  type="color"
+                  value={formData.secondary_color}
+                  onChange={(e) => setFormData(prev => ({ ...prev, secondary_color: e.target.value }))}
+                  className="w-12 h-10 border border-gray-300 rounded cursor-pointer"
+                />
+                <input
+                  type="text"
+                  value={formData.secondary_color}
+                  onChange={(e) => setFormData(prev => ({ ...prev, secondary_color: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 flex-1"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">צבע הדגשה</label>
+              <div className="flex items-center gap-3">
+                <input
+                  type="color"
+                  value={formData.accent_color}
+                  onChange={(e) => setFormData(prev => ({ ...prev, accent_color: e.target.value }))}
+                  className="w-12 h-10 border border-gray-300 rounded cursor-pointer"
+                />
+                <input
+                  type="text"
+                  value={formData.accent_color}
+                  onChange={(e) => setFormData(prev => ({ ...prev, accent_color: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 flex-1"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Typography */}
+        <div className="border-t pt-6">
+          <h3 className="text-lg font-semibold mb-4 text-gray-800">טיפוגרפיה</h3>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              <Type className="w-4 h-4 inline ml-1" />
+              גופן
+            </label>
+            <select
+              value={formData.font_family}
+              onChange={(e) => setFormData(prev => ({ ...prev, font_family: e.target.value }))}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+            >
+              <option value="Inter">Inter</option>
+              <option value="Roboto">Roboto</option>
+              <option value="Open Sans">Open Sans</option>
+              <option value="Heebo">Heebo</option>
+              <option value="Assistant">Assistant</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Page Content */}
+        <div className="border-t pt-6">
+          <h3 className="text-lg font-semibold mb-4 text-gray-800">תוכן דפים</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">כותרת דף אודות</label>
+              <input
+                type="text"
+                value={formData.about_title}
+                onChange={(e) => setFormData(prev => ({ ...prev, about_title: e.target.value }))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">תיאור דף אודות</label>
+              <input
+                type="text"
+                value={formData.about_description}
+                onChange={(e) => setFormData(prev => ({ ...prev, about_description: e.target.value }))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">כותרת דף צור קשר</label>
+              <input
+                type="text"
+                value={formData.contact_title}
+                onChange={(e) => setFormData(prev => ({ ...prev, contact_title: e.target.value }))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">תיאור דף צור קשר</label>
+              <input
+                type="text"
+                value={formData.contact_description}
+                onChange={(e) => setFormData(prev => ({ ...prev, contact_description: e.target.value }))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="border-t pt-6">
+          <h3 className="text-lg font-semibold mb-4 text-gray-800">כותרת תחתונה</h3>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">טקסט כותרת תחתונה</label>
+            <input
+              type="text"
+              value={formData.footer_text}
+              onChange={(e) => setFormData(prev => ({ ...prev, footer_text: e.target.value }))}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+            />
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          className="bg-orange-800 text-white px-8 py-3 rounded-lg hover:bg-orange-900 flex items-center gap-2 text-lg"
+        >
+          <Save className="w-5 h-5" />
+          <span>שמור שינויים</span>
+        </button>
+      </form>
+    </div>
+  );
+};
+
+// SEO Settings Component
+const SEOSettings: React.FC<{
+  settings?: SiteSettings;
+  loading: boolean;
+  onAdd: (settings: Omit<SiteSettings, 'id'>) => void;
+  onUpdate: (id: string, updates: Partial<SiteSettings>) => void;
+}> = ({ settings, loading, onAdd, onUpdate }) => {
+  const [formData, setFormData] = useState({
+    meta_keywords: settings?.meta_keywords || 'דלתות, דלת פלדה, דלת עץ, דלת ביטחון, התקנת דלתות',
+    social_facebook: settings?.social_facebook || '',
+    social_instagram: settings?.social_instagram || '',
+    social_whatsapp: settings?.social_whatsapp || ''
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      if (settings?.id) {
+        await onUpdate(settings.id, formData);
+      } else {
+        await onAdd(formData);
+      }
+      alert('הגדרות SEO נשמרו בהצלחה!');
+    } catch (error) {
+      alert('שגיאה בשמירת הגדרות SEO');
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-2xl shadow-xl p-8">
+        <div className="text-center">טוען הגדרות SEO...</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-2xl shadow-xl p-8">
+      <h2 className="text-2xl font-bold mb-6 text-gray-900 flex items-center gap-3">
+        <Globe className="w-6 h-6 text-blue-600" />
+        הגדרות SEO ושיווק
+      </h2>
+      
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            מילות מפתח (מופרדות בפסיק)
+          </label>
+          <textarea
+            value={formData.meta_keywords}
+            onChange={(e) => setFormData(prev => ({ ...prev, meta_keywords: e.target.value }))}
+            rows={3}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+            placeholder="דלתות, דלת פלדה, דלת עץ, דלת ביטחון"
+          />
+        </div>
+
+        <div className="border-t pt-6">
+          <h3 className="text-lg font-semibold mb-4 text-gray-800">רשתות חברתיות</h3>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Facebook</label>
+              <input
+                type="url"
+                value={formData.social_facebook}
+                onChange={(e) => setFormData(prev => ({ ...prev, social_facebook: e.target.value }))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+                placeholder="https://facebook.com/onlybest"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Instagram</label>
+              <input
+                type="url"
+                value={formData.social_instagram}
+                onChange={(e) => setFormData(prev => ({ ...prev, social_instagram: e.target.value }))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+                placeholder="https://instagram.com/onlybest"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">WhatsApp</label>
+              <input
+                type="text"
+                value={formData.social_whatsapp}
+                onChange={(e) => setFormData(prev => ({ ...prev, social_whatsapp: e.target.value }))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+                placeholder="+972583522191"
+              />
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          className="bg-orange-800 text-white px-8 py-3 rounded-lg hover:bg-orange-900 flex items-center gap-2 text-lg"
+        >
+          <Save className="w-5 h-5" />
+          <span>שמור הגדרות SEO</span>
+        </button>
+      </form>
     </div>
   );
 };
