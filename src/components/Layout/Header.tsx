@@ -83,7 +83,7 @@ const Header: React.FC = () => {
               href={createWhatsAppUrl(businessInfo.whatsapp, getWhatsAppMessage())}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-success px-6 py-2 text-sm"
+              className="btn-contact px-6 py-3 text-sm flex items-center gap-2"
             >
               <Phone className="w-4 h-4" />
               <span>צרו קשר</span>

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Door } from "../types";
-import { MessageCircle, Eye } from "lucide-react";
+import { MessageCircle, Eye, Info, Palette, Ruler, Wrench, Star } from "lucide-react";
 import { createWhatsAppUrl, getWhatsAppMessage } from "../utils/whatsapp";
 import { useFirestore } from "../hooks/useFirestore";
 import { businessInfo as defaultBusinessInfo } from "../data/business";
+import { BusinessInfo } from "../types";
 import ImageModal from "./ImageModal";
 
 interface DoorCardProps {
@@ -13,12 +15,15 @@ interface DoorCardProps {
 
 const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) => {
   const [showImageModal, setShowImageModal] = useState(false);
-  const { data: businessData } = useFirestore("business");
-  const business = businessData || defaultBusinessInfo;
+  const [showDetails, setShowDetails] = useState(false);
+  const { data: businessData } = useFirestore<BusinessInfo>("business");
+  const business = businessData.length > 0 ? businessData[0] : defaultBusinessInfo;
 
-  const handleWhatsAppClick = () => {
-    const message = getWhatsAppMessage(door?.name ?? "");
-    const whatsappUrl = createWhatsAppUrl(business?.whatsapp ?? "", message);
+  const handleWhatsAppClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const message = getWhatsAppMessage("catalog", door?.name);
+    const whatsappUrl = createWhatsAppUrl(business?.whatsapp || "", message);
     window.open(whatsappUrl, "_blank");
   };
 
@@ -27,100 +32,171 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
   const materials = door?.materials ?? [];
   const colors = door?.colors ?? [];
   const sizes = door?.sizes ?? [];
+  const addons = door?.addons ?? [];
 
   return (
     <>
-      <div className="group card-elevated overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-105">
-        <div className="relative">
+      <div className="door-card group">
+        {/* Image Section */}
+        <div className="relative overflow-hidden">
           <img
             src={firstImage?.url || "/placeholder-door.jpg"}
             alt={firstImage?.alt || door?.name || "Door image"}
-            className="w-full h-72 object-cover transition-transform duration-300 group-hover:scale-110"
+            className="door-card-image"
             loading="lazy"
           />
 
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
+          {/* Overlay with buttons */}
+          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
+            <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 flex gap-3">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowImageModal(true);
+                }}
+                className="bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200"
+                title="צפה בתמונה מלאה"
+              >
+                <Eye className="w-5 h-5" />
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowDetails(!showDetails);
+                }}
+                className="bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200"
+                title="פרטים נוספים"
+              >
+                <Info className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
 
-          {/* View full image */}
-          <button
-            type="button"
-            onClick={() => setShowImageModal(true)}
-            className="absolute top-4 right-4 bg-white/90 text-gray-800 p-3 rounded-full hover:bg-white transition-all duration-200 shadow-lg hover:shadow-xl opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
-            title="צפה בתמונה מלאה"
-            aria-label="צפה בתמונה מלאה"
-          >
-            <Eye className="w-5 h-5" />
-          </button>
+          {/* Category Badge */}
+          <div className="absolute top-4 right-4">
+            <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
+              {door?.category}
+            </span>
+          </div>
         </div>
 
+        {/* Content Section */}
         <div className="p-6">
-          <h3 className="heading-sm mb-3 text-gray-900">{door?.name}</h3>
-          {door?.short_description && (
-            <p className="text-body-sm mb-4 line-clamp-2">{door.short_description}</p>
-          )}
+          {/* Header */}
+          <div className="mb-4">
+            <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-200">
+              {door?.name}
+            </h3>
+            {door?.short_description && (
+              <p className="text-gray-600 text-sm leading-relaxed">
+                {door.short_description}
+              </p>
+            )}
+          </div>
 
-          {showFullDetails && (
-            <div className="mb-4">
-              {door?.description && (
-                <p className="text-gray-700 mb-3">{door.description}</p>
-              )}
-
-              {materials.length > 0 && (
-                <div className="mb-2">
-                  <span className="font-semibold text-gray-800">חומרים: </span>
-                  <span className="text-gray-600">{materials.join(", ")}</span>
-                </div>
-              )}
-
-              {colors.length > 0 && (
-                <div className="mb-2">
-                  <span className="font-semibold text-gray-800">צבעים זמינים: </span>
-                  <span className="text-gray-600">{colors.join(", ")}</span>
-                </div>
-              )}
-
-              {sizes.length > 0 && (
-                <div className="mb-2">
-                  <span className="font-semibold text-gray-800">מידות: </span>
-                  <span className="text-gray-600">{sizes.join(", ")}</span>
-                </div>
-              )}
-            </div>
-          )}
-
+          {/* Tags */}
           {tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-4">
-              {tags.map((tag, i) => (
+              {tags.slice(0, 3).map((tag, i) => (
                 <span
                   key={`${tag}-${i}`}
-                  className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full font-medium"
+                  className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full font-medium border border-blue-200"
                 >
                   {tag}
                 </span>
               ))}
+              {tags.length > 3 && (
+                <span className="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full font-medium">
+                  +{tags.length - 3} נוספים
+                </span>
+              )}
             </div>
           )}
 
-          <div className="flex justify-between items-center">
-            {door?.price_range && (
-              <span className="text-lg font-bold text-blue-600">{door.price_range}</span>
-            )}
+          {/* Details Section */}
+          {(showDetails || showFullDetails) && (
+            <div className="mb-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
+              {door?.description && (
+                <p className="text-gray-700 mb-4 leading-relaxed">
+                  {door.description}
+                </p>
+              )}
 
+              <div className="grid grid-cols-1 gap-3">
+                {materials.length > 0 && (
+                  <div className="flex items-start gap-2">
+                    <Wrench className="w-4 h-4 text-blue-600 mt-1 flex-shrink-0" />
+                    <div>
+                      <span className="font-semibold text-gray-800 text-sm">חומרים: </span>
+                      <span className="text-gray-600 text-sm">{materials.join(", ")}</span>
+                    </div>
+                  </div>
+                )}
+
+                {colors.length > 0 && (
+                  <div className="flex items-start gap-2">
+                    <Palette className="w-4 h-4 text-blue-600 mt-1 flex-shrink-0" />
+                    <div>
+                      <span className="font-semibold text-gray-800 text-sm">צבעים: </span>
+                      <span className="text-gray-600 text-sm">{colors.join(", ")}</span>
+                    </div>
+                  </div>
+                )}
+
+                {sizes.length > 0 && (
+                  <div className="flex items-start gap-2">
+                    <Ruler className="w-4 h-4 text-blue-600 mt-1 flex-shrink-0" />
+                    <div>
+                      <span className="font-semibold text-gray-800 text-sm">מידות: </span>
+                      <span className="text-gray-600 text-sm">{sizes.join(", ")} ס"מ</span>
+                    </div>
+                  </div>
+                )}
+
+                {addons.length > 0 && (
+                  <div className="flex items-start gap-2">
+                    <Star className="w-4 h-4 text-blue-600 mt-1 flex-shrink-0" />
+                    <div>
+                      <span className="font-semibold text-gray-800 text-sm">תוספות: </span>
+                      <span className="text-gray-600 text-sm">{addons.join(", ")}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Footer */}
+          <div className="flex items-center justify-between">
+            {/* Price */}
+            <div className="flex flex-col">
+              {door?.price_range && (
+                <span className="text-lg font-bold text-blue-600">
+                  {door.price_range}
+                </span>
+              )}
+              <Link
+                to={`/catalog/${door?.slug}`}
+                className="text-sm text-gray-500 hover:text-blue-600 transition-colors duration-200"
+              >
+                לפרטים מלאים →
+              </Link>
+            </div>
+
+            {/* Contact Button */}
             <button
-              type="button"
               onClick={handleWhatsAppClick}
-              className="btn-primary text-sm px-6 py-2 inline-flex items-center"
-              aria-label="פנייה בווטסאפ"
+              className="btn-contact text-sm px-6 py-3 inline-flex items-center gap-2"
               title="פנייה בווטסאפ"
             >
-              <MessageCircle className="w-4 h-4 ml-2" />
-              <span>פנייה</span>
+              <MessageCircle className="w-4 h-4" />
+              <span>צרו קשר</span>
             </button>
           </div>
         </div>
       </div>
 
+      {/* Image Modal */}
       {showImageModal && (
         <ImageModal
           images={door?.images ?? []}

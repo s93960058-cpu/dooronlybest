@@ -58,10 +58,14 @@ const Home: React.FC = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white overflow-hidden">
+      <section className="relative hero-gradient text-white overflow-hidden min-h-screen flex items-center">
         {/* Background Pattern */}
-        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
+        <div className="absolute inset-0 bg-black bg-opacity-10"></div>
+        <div className="absolute inset-0">
+          <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full animate-float"></div>
+          <div className="absolute top-32 right-20 w-16 h-16 bg-white/5 rounded-full animate-float" style={{animationDelay: '1s'}}></div>
+          <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-white/10 rounded-full animate-float" style={{animationDelay: '2s'}}></div>
+        </div>
         
         <div className="relative container-professional text-center section-padding">
           <h1 className="heading-xl mb-8 text-white">
@@ -75,14 +79,14 @@ const Home: React.FC = () => {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl text-lg font-semibold flex items-center justify-center space-x-2 space-x-reverse transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+              className="btn-success text-lg flex items-center justify-center gap-3 animate-pulse-glow"
             >
               <MessageCircle className="w-5 h-5" />
               <span>דברו איתנו בוואטסאפ</span>
             </a>
             <Link
               to="/catalog"
-              className="bg-white text-blue-900 hover:bg-blue-50 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+              className="bg-white text-blue-900 hover:bg-blue-50 px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95"
             >
               לצפייה בקטלוג
             </Link>
@@ -207,9 +211,9 @@ const Home: React.FC = () => {
       </section>
 
       {/* Quick Contact */}
-      <section className="relative section-padding bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white overflow-hidden">
+      <section className="relative section-padding hero-gradient text-white overflow-hidden">
         {/* Background Pattern */}
-        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+        <div className="absolute inset-0 bg-black bg-opacity-10"></div>
         
         <div className="relative container-professional text-center">
           <h2 className="heading-lg mb-6 text-white">
@@ -224,20 +228,20 @@ const Home: React.FC = () => {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl text-lg font-semibold flex items-center justify-center space-x-2 space-x-reverse transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+              className="btn-success text-lg flex items-center justify-center gap-3"
             >
               <MessageCircle className="w-5 h-5" />
               <span>וואטסאפ</span>
             </a>
             <a
               href={`tel:${currentBusinessInfo.phone}`}
-              className="bg-white text-blue-900 hover:bg-blue-50 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+              className="bg-white text-blue-900 hover:bg-blue-50 px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95"
             >
               התקשרו עכשיו
             </a>
             <Link
               to="/contact"
-              className="border-2 border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+              className="border-2 border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95"
             >
               טופס יצירת קשר
             </Link>
