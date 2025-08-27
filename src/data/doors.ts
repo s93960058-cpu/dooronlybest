@@ -16,6 +16,7 @@ export const doorsData: Door[] = [
     sizes: ['80x200', '90x210', '100x210'],
     addons: ['ידית מעוצבת', 'מנעול רב בריח', 'עינית פנורמית'],
     price: null,
+    price_range: null,
     images: [
       { url: 'https://images.pexels.com/photos/280232/pexels-photo-280232.jpeg', alt: 'דלת פלדה פרימיום חזית' },
       { url: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg', alt: 'דלת פלדה פרימיום תקריב' }
@@ -63,6 +64,7 @@ export const doorsData: Door[] = [
     sizes: ['80x200', '90x210'],
     addons: ['מנגנון סגירה מיוחד', 'ידיות חירום'],
     price: null,
+    price_range: null,
     images: [
       { url: 'https://images.pexels.com/photos/280232/pexels-photo-280232.jpeg', alt: 'דלת ממ"ד' }
     ],
@@ -85,7 +87,8 @@ export const doorsData: Door[] = [
     colors: ['שחור מט', 'לבן', 'אלומיניום טבעי'],
     sizes: ['80x210', '90x210', '100x210'],
     addons: ['ידיות מעוצבות', 'מנגנון סגירה עצמית'],
-    price: 2800,
+    price: null,
+    price_range: null,
     images: [
       { url: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg', alt: 'דלת זכוכית מודרנית' }
     ],
@@ -108,7 +111,8 @@ export const doorsData: Door[] = [
     colors: ['אפור', 'לבן', 'שחור'],
     sizes: ['80x200', '90x200'],
     addons: ['ידיות שקטות', 'אטמים אקוסטיים'],
-    price: 3200,
+    price: null,
+    price_range: null,
     images: [
       { url: 'https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg', alt: 'דלת אקוסטית' }
     ],
@@ -132,6 +136,7 @@ export const doorsData: Door[] = [
     sizes: ['80x200', '90x210', '120x210'],
     addons: ['מנגנון סגירה אוטומטי', 'שלט בטיחות'],
     price: null,
+    price_range: null,
     images: [
       { url: 'https://images.pexels.com/photos/280232/pexels-photo-280232.jpeg', alt: 'דלת עמידת אש' }
     ],
