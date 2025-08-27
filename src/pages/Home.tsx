@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MessageCircle, Shield, Award, Users, Phone } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
-import { DoorCard } from '../components/DoorCard';
+import   DoorCard from '../components/DoorCard';
 import DoorCarousel from '../components/DoorCarousel';
 import ReviewCard from '../components/ReviewCard';
 import { reviewsData } from '../data/reviews';
