@@ -188,15 +188,10 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
             </div>
           )}
 
-          {/* Premium Footer */}
-          <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-            {/* Price & Link */}
-            <div className="flex flex-col">
-              {door?.price_range && (
-                <span className="text-lg font-bold text-blue-600 mb-1">
-                  {door.price_range}
-                </span>
-              )}
+
+
+      
+              
               <Link
                 to={`/catalog/${door?.slug}`}
                 className="text-sm text-gray-500 hover:text-blue-600 transition-colors duration-300 font-medium"
