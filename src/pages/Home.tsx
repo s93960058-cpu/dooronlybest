@@ -68,7 +68,7 @@ const Home: React.FC = () => {
         </div>
         
         <div className="relative container-professional text-center section-padding">
-          <h1 className="heading-xl mb-8 text-white">
+          <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-8 text-black">
             Only Best - הכי טוב לבית שלך
           </h1>
           <p className="text-xl md:text-2xl mb-12 max-w-4xl mx-auto text-blue-100 leading-relaxed">
