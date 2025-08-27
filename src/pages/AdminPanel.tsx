@@ -71,7 +71,7 @@ const AdminPanel: React.FC = () => {
     colors: [],
     sizes: [],
     addons: [],
-    price_range: '₪₪ - בינוני',
+    price_range: ' ',
     price: null,
     images: [],
     display_priority: 5,
