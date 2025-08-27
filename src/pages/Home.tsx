@@ -59,19 +59,20 @@ const Home: React.FC = () => {
 
       {/* Hero Section */}
       <section className="relative hero-gradient text-white overflow-hidden min-h-screen flex items-center">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 bg-black bg-opacity-10"></div>
-        <div className="absolute inset-0">
-          <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full animate-float"></div>
-          <div className="absolute top-32 right-20 w-16 h-16 bg-white/5 rounded-full animate-float" style={{animationDelay: '1s'}}></div>
-          <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-white/10 rounded-full animate-float" style={{animationDelay: '2s'}}></div>
+        {/* Premium Background Elements */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/5 to-black/20"></div>
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 left-20 w-32 h-32 bg-white/8 rounded-full animate-float blur-sm"></div>
+          <div className="absolute top-40 right-32 w-24 h-24 bg-white/6 rounded-full animate-float-delayed blur-sm"></div>
+          <div className="absolute bottom-32 left-1/3 w-20 h-20 bg-white/10 rounded-full animate-float blur-sm" style={{animationDelay: '3s'}}></div>
+          <div className="absolute top-1/3 right-1/4 w-16 h-16 bg-white/5 rounded-full animate-float-delayed blur-sm" style={{animationDelay: '4s'}}></div>
         </div>
         
         <div className="relative container-professional text-center section-padding">
-          <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-8 text-black">
+          <h1 className="heading-xl mb-8 text-white drop-shadow-2xl">
             Only Best - הכי טוב לבית שלך
           </h1>
-          <p className="text-xl md:text-2xl mb-12 max-w-4xl mx-auto text-blue-100 leading-relaxed">
+          <p className="text-xl md:text-2xl mb-12 max-w-4xl mx-auto text-white/90 leading-relaxed font-medium drop-shadow-lg">
             בחירה מדויקת, התקנה מקצועית, שירות מהיר
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center max-w-2xl mx-auto">
@@ -86,7 +87,7 @@ const Home: React.FC = () => {
             </a>
             <Link
               to="/catalog"
-              className="bg-white text-blue-900 hover:bg-blue-50 px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95"
+              className="bg-white/95 backdrop-blur-sm text-blue-900 hover:bg-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95"
             >
               לצפייה בקטלוג
             </Link>
@@ -95,7 +96,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Featured Doors */}
-      <section className="section-padding bg-gradient-to-b from-gray-50 to-white">
+      <section className="section-padding bg-gradient-to-b from-white to-gray-50">
         <div className="container-professional">
           <div className="text-center mb-12">
             <h2 className="heading-lg mb-6">
@@ -139,7 +140,7 @@ const Home: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="card-blue w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md card-with-logo">
+              <div className="card-blue w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
                 <Award className="w-10 h-10 text-blue-600" />
               </div>
               <h3 className="heading-sm mb-4">איכות חומרים גבוהה</h3>
@@ -149,7 +150,7 @@ const Home: React.FC = () => {
             </div>
             
             <div className="text-center">
-              <div className="card-emerald w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md card-with-logo">
+              <div className="card-emerald w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
                 <Users className="w-10 h-10 text-green-600" />
               </div>
               <h3 className="heading-sm mb-4">התקנה אחראית</h3>
@@ -159,7 +160,7 @@ const Home: React.FC = () => {
             </div>
             
             <div className="text-center">
-              <div className="card-emerald w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md card-with-logo">
+              <div className="card-slate w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
                 <Shield className="w-10 h-10 text-emerald-600" />
               </div>
               <h3 className="heading-sm mb-4">אחריות ושירות</h3>
@@ -169,7 +170,7 @@ const Home: React.FC = () => {
             </div>
             
             <div className="text-center">
-              <div className="card-gold w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md card-with-logo">
+              <div className="card-gold w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
                 <Phone className="w-10 h-10 text-amber-700" />
               </div>
               <h3 className="heading-sm mb-4">מחירים הוגנים</h3>
@@ -182,7 +183,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Reviews Preview */}
-      <section className="section-padding bg-gradient-to-b from-gray-50 to-white">
+      <section className="section-padding bg-gradient-to-b from-white to-gray-50">
         <div className="container-professional">
           <div className="text-center mb-12">
             <h2 className="heading-lg mb-6">
@@ -212,14 +213,14 @@ const Home: React.FC = () => {
 
       {/* Quick Contact */}
       <section className="relative section-padding hero-gradient text-white overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 bg-black bg-opacity-10"></div>
+        {/* Premium Background */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
         
         <div className="relative container-professional text-center">
           <h2 className="heading-lg mb-6 text-white">
             מוכנים להתחיל?
           </h2>
-          <p className="text-xl mb-12 max-w-3xl mx-auto text-blue-100 leading-relaxed">
+          <p className="text-xl mb-12 max-w-3xl mx-auto text-white/90 leading-relaxed font-medium">
             צרו קשר עכשיו לקבלת ייעוץ מקצועי והצעת מחיר חינם
           </p>
           
@@ -235,13 +236,13 @@ const Home: React.FC = () => {
             </a>
             <a
               href={`tel:${currentBusinessInfo.phone}`}
-              className="bg-white text-blue-900 hover:bg-blue-50 px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95"
+              className="bg-white/95 backdrop-blur-sm text-blue-900 hover:bg-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95"
             >
               התקשרו עכשיו
             </a>
             <Link
               to="/contact"
-              className="border-2 border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95"
+              className="border-2 border-white/80 text-white hover:bg-white hover:text-blue-900 px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95 backdrop-blur-sm"
             >
               טופס יצירת קשר
             </Link>

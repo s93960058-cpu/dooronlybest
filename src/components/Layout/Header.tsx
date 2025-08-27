@@ -47,16 +47,16 @@ const Header: React.FC = () => {
           {/* Logo */}
           <div 
             onClick={handleLogoClick}
-            className="flex items-center space-x-2 space-x-reverse cursor-pointer select-none group logo-container"
+            className="flex items-center space-x-3 space-x-reverse cursor-pointer select-none group logo-container"
           >
             <img 
               src="/image.png" 
               alt="Only Best Logo" 
-              className="w-12 h-12 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12 drop-shadow-lg"
+              className="w-14 h-14 object-contain transition-transform duration-500 group-hover:scale-125 group-hover:rotate-12 drop-shadow-xl"
             />
-            <span className="font-bold text-2xl text-black">Only Best</span>
+            <span className="font-bold text-2xl text-gray-900 tracking-tight">Only Best</span>
             {logoClickCount > 0 && logoClickCount < 10 && (
-              <span className="text-xs text-gray-400 mr-2">
+              <span className="text-xs text-gray-400 mr-3 font-mono">
                 {logoClickCount}/10
               </span>
             )}
@@ -68,8 +68,8 @@ const Header: React.FC = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`text-gray-700 hover:text-orange-800 transition-colors duration-200 ${
-                  isActive(item.href) ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : ''
+                className={`text-gray-700 hover:text-blue-600 transition-all duration-300 font-medium px-3 py-2 rounded-lg hover:bg-blue-50 ${
+                  isActive(item.href) ? 'text-blue-600 font-semibold bg-blue-50 shadow-sm' : ''
                 }`}
               >
                 {item.name}
@@ -83,7 +83,7 @@ const Header: React.FC = () => {
               href={createWhatsAppUrl(businessInfo.whatsapp, getWhatsAppMessage())}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-contact px-6 py-3 text-sm flex items-center gap-2"
+              className="btn-contact shadow-lg hover:shadow-xl"
             >
               <Phone className="w-4 h-4" />
               <span>צרו קשר</span>
@@ -92,24 +92,24 @@ const Header: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2"
+            className="md:hidden p-3 rounded-xl hover:bg-gray-100 transition-colors duration-300"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="תפריט"
           >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMenuOpen ? <X className="w-6 h-6 text-gray-700" /> : <Menu className="w-6 h-6 text-gray-700" />}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t">
-            <nav className="flex flex-col space-y-4">
+          <div className="md:hidden py-6 border-t border-gray-100 bg-white/95 backdrop-blur-sm">
+            <nav className="flex flex-col space-y-2">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`text-gray-700 hover:text-orange-800 transition-colors duration-200 ${
-                    isActive(item.href) ? 'text-blue-600 font-semibold' : ''
+                  className={`text-gray-700 hover:text-blue-600 transition-all duration-300 font-medium px-4 py-3 rounded-xl hover:bg-blue-50 ${
+                    isActive(item.href) ? 'text-blue-600 font-semibold bg-blue-50' : ''
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -120,7 +120,7 @@ const Header: React.FC = () => {
                 href={createWhatsAppUrl(businessInfo.whatsapp, getWhatsAppMessage())}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-success w-full justify-center"
+                className="btn-success w-full justify-center mt-4 shadow-lg"
               >
                 <Phone className="w-4 h-4" />
                 <span>צרו קשר</span>
