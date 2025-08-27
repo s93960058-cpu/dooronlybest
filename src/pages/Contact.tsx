@@ -151,7 +151,7 @@ const Contact: React.FC = () => {
                     <option value="התעניינות">התעניינות כללית</option>
                     <option value="הצעת מחיר">בקשה להצעת מחיר</option>
                     <option value="שירות">שירות לאחר המכירה</option>
-                    <option value="תלונה">הצעות לשיפור האתר</option>
+                    <option value="הצעות לשיפור האתר">הצעות לשיפור האתר</option>
                   </select>
                 </div>
 
