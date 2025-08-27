@@ -902,6 +902,27 @@ const AdminPanel: React.FC = () => {
                     <option value="₪₪₪₪ - פרימיום">₪₪₪₪ - פרימיום</option>
                   </select>
                 </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">מחיר מדויק (אופציונלי)</label>
+                  <input
+                    type="number"
+                    value={newDoor.price || ''}
+                    onChange={(e) => setNewDoor(prev => ({ ...prev, price: e.target.value ? Number(e.target.value) : null }))}
+                    className="admin-input"
+                    placeholder="למשל: 2500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">עדיפות תצוגה (1-10)</label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="10"
+                    value={newDoor.display_priority}
+                    onChange={(e) => setNewDoor(prev => ({ ...prev, display_priority: Number(e.target.value) }))}
+                    className="admin-input"
+                  />
+                </div>
               </div>
 
               <div>
@@ -926,6 +947,183 @@ const AdminPanel: React.FC = () => {
                 />
               </div>
 
+              {/* Style Selection */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">סגנונות (בחר מספר)</label>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                  {['מודרני', 'קלאסי', 'תעשייתי', 'ביטחון', 'מקצועי', 'מינימליסטי'].map((style) => (
+                    <label key={style} className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={newDoor.style?.includes(style) || false}
+                        onChange={(e) => {
+                          const currentStyles = newDoor.style || [];
+                          if (e.target.checked) {
+                            setNewDoor(prev => ({ ...prev, style: [...currentStyles, style] }));
+                          } else {
+                            setNewDoor(prev => ({ ...prev, style: currentStyles.filter(s => s !== style) }));
+                          }
+                        }}
+                        className="rounded"
+                      />
+                      <span className="text-sm">{style}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Tags */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">תגיות (הפרד בפסיקים)</label>
+                <input
+                  type="text"
+                  value={newDoor.tags?.join(', ') || ''}
+                  onChange={(e) => setNewDoor(prev => ({ 
+                    ...prev, 
+                    tags: e.target.value.split(',').map(tag => tag.trim()).filter(tag => tag) 
+                  }))}
+                  className="admin-input"
+                  placeholder="בידוד גבוה, עמיד מזג אוויר, ביטחון"
+                />
+              </div>
+
+              {/* Materials */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">חומרים (הפרד בפסיקים)</label>
+                <input
+                  type="text"
+                  value={newDoor.materials?.join(', ') || ''}
+                  onChange={(e) => setNewDoor(prev => ({ 
+                    ...prev, 
+                    materials: e.target.value.split(',').map(material => material.trim()).filter(material => material) 
+                  }))}
+                  className="admin-input"
+                  placeholder="פלדה, בידוד פוליאוריתן, עץ אלון"
+                />
+              </div>
+
+              {/* Finishes */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">גימורים (הפרד בפסיקים)</label>
+                <input
+                  type="text"
+                  value={newDoor.finishes?.join(', ') || ''}
+                  onChange={(e) => setNewDoor(prev => ({ 
+                    ...prev, 
+                    finishes: e.target.value.split(',').map(finish => finish.trim()).filter(finish => finish) 
+                  }))}
+                  className="admin-input"
+                  placeholder="אפוקסי, צבע אנטי קורוזיה, לכה שקופה"
+                />
+              </div>
+
+              {/* Colors */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">צבעים זמינים (הפרד בפסיקים)</label>
+                <input
+                  type="text"
+                  value={newDoor.colors?.join(', ') || ''}
+                  onChange={(e) => setNewDoor(prev => ({ 
+                    ...prev, 
+                    colors: e.target.value.split(',').map(color => color.trim()).filter(color => color) 
+                  }))}
+                  className="admin-input"
+                  placeholder="שחור, חום, לבן, עץ טבעי"
+                />
+              </div>
+
+              {/* Sizes */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">מידות זמינות (הפרד בפסיקים)</label>
+                <input
+                  type="text"
+                  value={newDoor.sizes?.join(', ') || ''}
+                  onChange={(e) => setNewDoor(prev => ({ 
+                    ...prev, 
+                    sizes: e.target.value.split(',').map(size => size.trim()).filter(size => size) 
+                  }))}
+                  className="admin-input"
+                  placeholder="80x200, 90x210, 100x210"
+                />
+              </div>
+
+              {/* Add-ons */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">תוספות (הפרד בפסיקים)</label>
+                <input
+                  type="text"
+                  value={newDoor.addons?.join(', ') || ''}
+                  onChange={(e) => setNewDoor(prev => ({ 
+                    ...prev, 
+                    addons: e.target.value.split(',').map(addon => addon.trim()).filter(addon => addon) 
+                  }))}
+                  className="admin-input"
+                  placeholder="ידית מעוצבת, מנעול רב בריח, עינית פנורמית"
+                />
+              </div>
+
+              {/* Images */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">תמונות</label>
+                <div className="space-y-4">
+                  {newDoor.images?.map((image, index) => (
+                    <div key={index} className="flex items-center gap-4 p-4 border border-gray-200 rounded-lg">
+                      <img src={image.url} alt={image.alt} className="w-20 h-20 object-cover rounded-lg" />
+                      <div className="flex-1">
+                        <input
+                          type="text"
+                          value={image.alt}
+                          onChange={(e) => {
+                            const updatedImages = [...(newDoor.images || [])];
+                            updatedImages[index] = { ...updatedImages[index], alt: e.target.value };
+                            setNewDoor(prev => ({ ...prev, images: updatedImages }));
+                          }}
+                          className="admin-input"
+                          placeholder="תיאור התמונה"
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const updatedImages = newDoor.images?.filter((_, i) => i !== index) || [];
+                          setNewDoor(prev => ({ ...prev, images: updatedImages }));
+                        }}
+                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                  
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          try {
+                            const imageData = await handleImageUpload(file);
+                            setNewDoor(prev => ({ 
+                              ...prev, 
+                              images: [...(prev.images || []), imageData] 
+                            }));
+                          } catch (error) {
+                            alert('שגיאה בהעלאת התמונה');
+                          }
+                        }
+                      }}
+                      className="hidden"
+                      id="imageUpload"
+                    />
+                    <label htmlFor="imageUpload" className="cursor-pointer">
+                      <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                      <p className="text-gray-600">לחץ להעלאת תמונה</p>
+                      {uploading && <p className="text-blue-600 mt-2">מעלה תמונה...</p>}
+                    </label>
+                  </div>
+                </div>
+              </div>
               <div className="flex items-center gap-4">
                 <label className="flex items-center gap-2">
                   <input
@@ -983,6 +1181,16 @@ const AdminPanel: React.FC = () => {
                   />
                 </div>
                 <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Slug (URL)</label>
+                  <input
+                    type="text"
+                    value={editingDoor.slug}
+                    onChange={(e) => setEditingDoor(prev => prev ? ({ ...prev, slug: e.target.value }) : null)}
+                    className="admin-input"
+                    required
+                  />
+                </div>
+                <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">קטגוריה</label>
                   <select
                     value={editingDoor.category}
@@ -996,6 +1204,40 @@ const AdminPanel: React.FC = () => {
                     <option value="ממ״ד">ממ״ד</option>
                     <option value="זכוכית">זכוכית</option>
                   </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">טווח מחירים</label>
+                  <select
+                    value={editingDoor.price_range}
+                    onChange={(e) => setEditingDoor(prev => prev ? ({ ...prev, price_range: e.target.value }) : null)}
+                    className="admin-input"
+                  >
+                    <option value="₪ - נמוך">₪ - נמוך</option>
+                    <option value="₪₪ - בינוני">₪₪ - בינוני</option>
+                    <option value="₪₪₪ - גבוה">₪₪₪ - גבוה</option>
+                    <option value="₪₪₪₪ - פרימיום">₪₪₪₪ - פרימיום</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">מחיר מדויק (אופציונלי)</label>
+                  <input
+                    type="number"
+                    value={editingDoor.price || ''}
+                    onChange={(e) => setEditingDoor(prev => prev ? ({ ...prev, price: e.target.value ? Number(e.target.value) : null }) : null)}
+                    className="admin-input"
+                    placeholder="למשל: 2500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">עדיפות תצוגה (1-10)</label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="10"
+                    value={editingDoor.display_priority}
+                    onChange={(e) => setEditingDoor(prev => prev ? ({ ...prev, display_priority: Number(e.target.value) }) : null)}
+                    className="admin-input"
+                  />
                 </div>
               </div>
 
@@ -1021,6 +1263,183 @@ const AdminPanel: React.FC = () => {
                 />
               </div>
 
+              {/* Style Selection */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">סגנונות (בחר מספר)</label>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                  {['מודרני', 'קלאסי', 'תעשייתי', 'ביטחון', 'מקצועי', 'מינימליסטי'].map((style) => (
+                    <label key={style} className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={editingDoor.style?.includes(style) || false}
+                        onChange={(e) => {
+                          const currentStyles = editingDoor.style || [];
+                          if (e.target.checked) {
+                            setEditingDoor(prev => prev ? ({ ...prev, style: [...currentStyles, style] }) : null);
+                          } else {
+                            setEditingDoor(prev => prev ? ({ ...prev, style: currentStyles.filter(s => s !== style) }) : null);
+                          }
+                        }}
+                        className="rounded"
+                      />
+                      <span className="text-sm">{style}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Tags */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">תגיות (הפרד בפסיקים)</label>
+                <input
+                  type="text"
+                  value={editingDoor.tags?.join(', ') || ''}
+                  onChange={(e) => setEditingDoor(prev => prev ? ({ 
+                    ...prev, 
+                    tags: e.target.value.split(',').map(tag => tag.trim()).filter(tag => tag) 
+                  }) : null)}
+                  className="admin-input"
+                  placeholder="בידוד גבוה, עמיד מזג אוויר, ביטחון"
+                />
+              </div>
+
+              {/* Materials */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">חומרים (הפרד בפסיקים)</label>
+                <input
+                  type="text"
+                  value={editingDoor.materials?.join(', ') || ''}
+                  onChange={(e) => setEditingDoor(prev => prev ? ({ 
+                    ...prev, 
+                    materials: e.target.value.split(',').map(material => material.trim()).filter(material => material) 
+                  }) : null)}
+                  className="admin-input"
+                  placeholder="פלדה, בידוד פוליאוריתן, עץ אלון"
+                />
+              </div>
+
+              {/* Finishes */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">גימורים (הפרד בפסיקים)</label>
+                <input
+                  type="text"
+                  value={editingDoor.finishes?.join(', ') || ''}
+                  onChange={(e) => setEditingDoor(prev => prev ? ({ 
+                    ...prev, 
+                    finishes: e.target.value.split(',').map(finish => finish.trim()).filter(finish => finish) 
+                  }) : null)}
+                  className="admin-input"
+                  placeholder="אפוקסי, צבע אנטי קורוזיה, לכה שקופה"
+                />
+              </div>
+
+              {/* Colors */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">צבעים זמינים (הפרד בפסיקים)</label>
+                <input
+                  type="text"
+                  value={editingDoor.colors?.join(', ') || ''}
+                  onChange={(e) => setEditingDoor(prev => prev ? ({ 
+                    ...prev, 
+                    colors: e.target.value.split(',').map(color => color.trim()).filter(color => color) 
+                  }) : null)}
+                  className="admin-input"
+                  placeholder="שחור, חום, לבן, עץ טבעי"
+                />
+              </div>
+
+              {/* Sizes */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">מידות זמינות (הפרד בפסיקים)</label>
+                <input
+                  type="text"
+                  value={editingDoor.sizes?.join(', ') || ''}
+                  onChange={(e) => setEditingDoor(prev => prev ? ({ 
+                    ...prev, 
+                    sizes: e.target.value.split(',').map(size => size.trim()).filter(size => size) 
+                  }) : null)}
+                  className="admin-input"
+                  placeholder="80x200, 90x210, 100x210"
+                />
+              </div>
+
+              {/* Add-ons */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">תוספות (הפרד בפסיקים)</label>
+                <input
+                  type="text"
+                  value={editingDoor.addons?.join(', ') || ''}
+                  onChange={(e) => setEditingDoor(prev => prev ? ({ 
+                    ...prev, 
+                    addons: e.target.value.split(',').map(addon => addon.trim()).filter(addon => addon) 
+                  }) : null)}
+                  className="admin-input"
+                  placeholder="ידית מעוצבת, מנעול רב בריח, עינית פנורמית"
+                />
+              </div>
+
+              {/* Images */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">תמונות</label>
+                <div className="space-y-4">
+                  {editingDoor.images?.map((image, index) => (
+                    <div key={index} className="flex items-center gap-4 p-4 border border-gray-200 rounded-lg">
+                      <img src={image.url} alt={image.alt} className="w-20 h-20 object-cover rounded-lg" />
+                      <div className="flex-1">
+                        <input
+                          type="text"
+                          value={image.alt}
+                          onChange={(e) => {
+                            const updatedImages = [...(editingDoor.images || [])];
+                            updatedImages[index] = { ...updatedImages[index], alt: e.target.value };
+                            setEditingDoor(prev => prev ? ({ ...prev, images: updatedImages }) : null);
+                          }}
+                          className="admin-input"
+                          placeholder="תיאור התמונה"
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const updatedImages = editingDoor.images?.filter((_, i) => i !== index) || [];
+                          setEditingDoor(prev => prev ? ({ ...prev, images: updatedImages }) : null);
+                        }}
+                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                  
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          try {
+                            const imageData = await handleImageUpload(file);
+                            setEditingDoor(prev => prev ? ({ 
+                              ...prev, 
+                              images: [...(prev.images || []), imageData] 
+                            }) : null);
+                          } catch (error) {
+                            alert('שגיאה בהעלאת התמונה');
+                          }
+                        }
+                      }}
+                      className="hidden"
+                      id="editImageUpload"
+                    />
+                    <label htmlFor="editImageUpload" className="cursor-pointer">
+                      <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                      <p className="text-gray-600">לחץ להעלאת תמונה</p>
+                      {uploading && <p className="text-blue-600 mt-2">מעלה תמונה...</p>}
+                    </label>
+                  </div>
+                </div>
+              </div>
               <div className="flex items-center gap-4">
                 <label className="flex items-center gap-2">
                   <input
