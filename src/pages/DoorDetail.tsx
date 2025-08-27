@@ -94,8 +94,6 @@ const DoorDetail: React.FC = () => {
             "image": door.images.map(img => img.url),
             "offers": {
               "@type": "Offer",
-              "price": door.price || 0,
-              "priceCurrency": "ILS",
               "availability": "https://schema.org/InStock"
             },
             "brand": {
