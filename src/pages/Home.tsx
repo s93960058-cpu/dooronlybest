@@ -58,27 +58,31 @@ const Home: React.FC = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-orange-800 to-orange-600 text-white py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+      <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
+        
+        <div className="relative container-professional text-center section-padding">
+          <h1 className="heading-xl mb-8 text-white">
             Only Best - הכי טוב לבית שלך
           </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl mb-12 max-w-4xl mx-auto text-blue-100 leading-relaxed">
             בחירה מדויקת, התקנה מקצועית, שירות מהיר
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center max-w-2xl mx-auto">
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg text-lg font-semibold flex items-center justify-center space-x-2 space-x-reverse transition-colors duration-200"
+              className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl text-lg font-semibold flex items-center justify-center space-x-2 space-x-reverse transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
             >
               <MessageCircle className="w-5 h-5" />
               <span>דברו איתנו בוואטסאפ</span>
             </a>
             <Link
               to="/catalog"
-              className="bg-white text-orange-800 hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-semibold transition-colors duration-200"
+              className="bg-white text-blue-900 hover:bg-blue-50 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
             >
               לצפייה בקטלוג
             </Link>
@@ -87,20 +91,20 @@ const Home: React.FC = () => {
       </section>
 
       {/* Featured Doors */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
+      <section className="section-padding bg-gradient-to-b from-gray-50 to-white">
+        <div className="container-professional">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="heading-lg mb-6">
               הדלתות המובילות שלנו
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-body max-w-3xl mx-auto">
               מבחר מעולה של דלתות איכותיות לכל צורך - מדלתות פנימיות ועד דלתות ביטחון
             </p>
           </div>
           
           {doorsLoading ? (
             <div className="text-center py-8">
-              <p className="text-gray-600">טוען דלתות...</p>
+              <p className="text-body">טוען דלתות...</p>
             </div>
           ) : (
             <DoorCarousel doors={featuredDoors} />
@@ -109,7 +113,7 @@ const Home: React.FC = () => {
           <div className="text-center mt-12">
             <Link
               to="/catalog"
-              className="bg-orange-800 hover:bg-orange-900 text-white px-8 py-4 rounded-lg text-lg font-semibold inline-block transition-colors duration-200"
+              className="btn-primary inline-block"
             >
               לכל הקטלוג
             </Link>
@@ -118,54 +122,54 @@ const Home: React.FC = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
+      <section className="section-padding bg-white">
+        <div className="container-professional">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="heading-lg mb-6">
               למה Only Best?
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-body max-w-3xl mx-auto">
               אנחנו מתמחים במתן פתרונות דלתות מקיפים עם דגש על איכות ושירות
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Award className="w-8 h-8 text-orange-800" />
+              <div className="bg-blue-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md">
+                <Award className="w-10 h-10 text-blue-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">איכות חומרים גבוהה</h3>
-              <p className="text-gray-600">
+              <h3 className="heading-sm mb-4">איכות חומרים גבוהה</h3>
+              <p className="text-body-sm">
                 אנחנו עובדים עם יצרנים מובילים ומשתמשים רק בחומרים איכותיים
               </p>
             </div>
             
             <div className="text-center">
-              <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="w-8 h-8 text-orange-800" />
+              <div className="bg-green-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md">
+                <Users className="w-10 h-10 text-green-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">התקנה אחראית</h3>
-              <p className="text-gray-600">
+              <h3 className="heading-sm mb-4">התקנה אחראית</h3>
+              <p className="text-body-sm">
                 צוות מקצועי ומנוסה מבצע התקנה מדויקת ומקפיד על פרטים הקטנים
               </p>
             </div>
             
             <div className="text-center">
-              <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-8 h-8 text-orange-800" />
+              <div className="bg-purple-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md">
+                <Shield className="w-10 h-10 text-purple-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">אחריות ושירות</h3>
-              <p className="text-gray-600">
+              <h3 className="heading-sm mb-4">אחריות ושירות</h3>
+              <p className="text-body-sm">
                 אחריות מלאה על כל המוצרים ושירות לאחר המכירה מהמובילים בתחום
               </p>
             </div>
             
             <div className="text-center">
-              <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Phone className="w-8 h-8 text-orange-800" />
+              <div className="bg-amber-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md">
+                <Phone className="w-10 h-10 text-amber-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">מחירים הוגנים</h3>
-              <p className="text-gray-600">
+              <h3 className="heading-sm mb-4">מחירים הוגנים</h3>
+              <p className="text-body-sm">
                 יחס איכות מחיר מעולה עם שקיפות מלאה בתמחור ובלי עלויות נסתרות
               </p>
             </div>
@@ -174,13 +178,13 @@ const Home: React.FC = () => {
       </section>
 
       {/* Reviews Preview */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
+      <section className="section-padding bg-gradient-to-b from-gray-50 to-white">
+        <div className="container-professional">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="heading-lg mb-6">
               מה הלקוחות אומרים
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-body max-w-3xl mx-auto">
               הביקורות האמיתיות של הלקוחות שלנו מספרות הכל
             </p>
           </div>
@@ -194,7 +198,7 @@ const Home: React.FC = () => {
           <div className="text-center mt-12">
             <Link
               to="/reviews"
-              className="bg-orange-800 hover:bg-orange-900 text-white px-8 py-4 rounded-lg text-lg font-semibold inline-block transition-colors duration-200"
+              className="btn-primary inline-block"
             >
               לעוד ביקורות
             </Link>
@@ -203,34 +207,37 @@ const Home: React.FC = () => {
       </section>
 
       {/* Quick Contact */}
-      <section className="py-16 bg-orange-800 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+      <section className="relative section-padding bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+        
+        <div className="relative container-professional text-center">
+          <h2 className="heading-lg mb-6 text-white">
             מוכנים להתחיל?
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
+          <p className="text-xl mb-12 max-w-3xl mx-auto text-blue-100 leading-relaxed">
             צרו קשר עכשיו לקבלת ייעוץ מקצועי והצעת מחיר חינם
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center max-w-3xl mx-auto">
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg text-lg font-semibold flex items-center justify-center space-x-2 space-x-reverse transition-colors duration-200"
+              className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl text-lg font-semibold flex items-center justify-center space-x-2 space-x-reverse transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
             >
               <MessageCircle className="w-5 h-5" />
               <span>וואטסאפ</span>
             </a>
             <a
               href={`tel:${currentBusinessInfo.phone}`}
-              className="bg-white text-orange-800 hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-semibold transition-colors duration-200"
+              className="bg-white text-blue-900 hover:bg-blue-50 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
             >
               התקשרו עכשיו
             </a>
             <Link
               to="/contact"
-              className="border-2 border-white text-white hover:bg-white hover:text-orange-800 px-8 py-4 rounded-lg text-lg font-semibold transition-colors duration-200"
+              className="border-2 border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
             >
               טופס יצירת קשר
             </Link>

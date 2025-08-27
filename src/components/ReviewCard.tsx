@@ -19,17 +19,22 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
+    <div className="card p-8 hover:shadow-lg transition-all duration-300">
       <div className="flex items-center mb-4">
         <div className="flex space-x-1 space-x-reverse">
           {renderStars(review.rating)}
         </div>
-        <span className="mr-3 text-sm text-gray-600">
+        <span className="mr-4 text-sm text-gray-500 font-medium">
           {new Date(review.date).toLocaleDateString('he-IL')}
         </span>
       </div>
-      <p className="text-gray-800 mb-4 leading-relaxed">{review.comment}</p>
-      <p className="font-semibold text-orange-800">{review.name}</p>
+      <p className="text-gray-700 mb-6 leading-relaxed text-base">{review.comment}</p>
+      <div className="flex items-center">
+        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm ml-3">
+          {review.name.charAt(0)}
+        </div>
+        <p className="font-semibold text-gray-900">{review.name}</p>
+      </div>
     </div>
   );
 };

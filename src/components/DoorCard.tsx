@@ -19,25 +19,28 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
 
   return (
     <>
-      <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+      <div className="card-elevated overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-105">
         <div className="relative">
           <img
             src={door.images[0]?.url || '/placeholder-door.jpg'}
             alt={door.images[0]?.alt || door.name}
-            className="w-full h-64 object-cover"
+            className="w-full h-72 object-cover transition-transform duration-300 group-hover:scale-110"
           />
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+          
           <button
             onClick={() => setShowImageModal(true)}
-            className="absolute top-2 right-2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition-opacity"
+            className="absolute top-4 right-4 bg-white bg-opacity-90 text-gray-800 p-3 rounded-full hover:bg-white transition-all duration-200 shadow-lg hover:shadow-xl opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0"
             title="צפה בתמונה מלאה"
           >
-            <Eye className="w-4 h-4" />
+            <Eye className="w-5 h-5" />
           </button>
         </div>
         
         <div className="p-6">
-          <h3 className="text-xl font-bold mb-2 text-gray-900">{door.name}</h3>
-          <p className="text-gray-600 mb-4">{door.short_description}</p>
+          <h3 className="heading-sm mb-3 text-gray-900">{door.name}</h3>
+          <p className="text-body-sm mb-4 line-clamp-2">{door.short_description}</p>
           
           {showFullDetails && (
             <div className="mb-4">
@@ -70,7 +73,7 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
             {door.tags.map((tag, index) => (
               <span
                 key={index}
-                className="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full"
+                className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full font-medium"
               >
                 {tag}
               </span>
@@ -78,12 +81,12 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
           </div>
           
           <div className="flex justify-between items-center">
-            <span className="text-lg font-bold text-orange-600">{door.price_range}</span>
+            <span className="text-lg font-bold text-blue-600">{door.price_range}</span>
             <button
               onClick={handleWhatsAppClick}
-              className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 space-x-reverse transition-colors duration-200"
+              className="btn-primary text-sm px-6 py-2"
             >
-              <MessageCircle className="w-4 h-4" />
+              <Eye className="w-4 h-4 ml-2" />
               <span>פנייה</span>
             </button>
           </div>
