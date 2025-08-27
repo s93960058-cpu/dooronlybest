@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Door } from '../types';
 import { MessageCircle, Eye } from 'lucide-react';
-import { sendWhatsAppMessage } from '../utils/whatsapp';
+import { createWhatsAppUrl, getWhatsAppMessage } from '../utils/whatsapp';
+import { useFirestore } from '../hooks/useFirestore';
+import { businessInfo as defaultBusinessInfo } from '../data/business';
 import ImageModal from './ImageModal';
 
 interface DoorCardProps {
@@ -11,10 +13,13 @@ interface DoorCardProps {
 
 const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) => {
   const [showImageModal, setShowImageModal] = useState(false);
+  const { data: businessData } = useFirestore('business');
+  const business = businessData || defaultBusinessInfo;
 
   const handleWhatsAppClick = () => {
-    const message = `שלום, אני מעוניין/ת לקבל מידע נוסף על ${door.name}`;
-    sendWhatsAppMessage(message);
+    const message = getWhatsAppMessage(door.name);
+    const whatsappUrl = createWhatsAppUrl(business.whatsapp, message);
+    window.open(whatsappUrl, '_blank');
   };
 
   return (
