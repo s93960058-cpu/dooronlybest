@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Search, Filter } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
-import { DoorCard } from '../components/DoorCard';
+import   DoorCard  from '../components/DoorCard';
 import { categories, styles, doorsData as staticDoorsData } from '../data/doors';
 import { useFirestore } from '../hooks/useFirestore';
 import { Door } from '../types';
