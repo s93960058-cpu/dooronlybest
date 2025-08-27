@@ -139,7 +139,7 @@ const Home: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="bg-blue-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md card-with-logo">
+              <div className="card-blue w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md card-with-logo">
                 <Award className="w-10 h-10 text-blue-600" />
               </div>
               <h3 className="heading-sm mb-4">איכות חומרים גבוהה</h3>
@@ -149,7 +149,7 @@ const Home: React.FC = () => {
             </div>
             
             <div className="text-center">
-              <div className="bg-green-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md card-with-logo">
+              <div className="card-emerald w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md card-with-logo">
                 <Users className="w-10 h-10 text-green-600" />
               </div>
               <h3 className="heading-sm mb-4">התקנה אחראית</h3>
@@ -159,8 +159,8 @@ const Home: React.FC = () => {
             </div>
             
             <div className="text-center">
-              <div className="bg-purple-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md card-with-logo">
-                <Shield className="w-10 h-10 text-purple-600" />
+              <div className="card-emerald w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md card-with-logo">
+                <Shield className="w-10 h-10 text-emerald-600" />
               </div>
               <h3 className="heading-sm mb-4">אחריות ושירות</h3>
               <p className="text-body-sm">
@@ -169,8 +169,8 @@ const Home: React.FC = () => {
             </div>
             
             <div className="text-center">
-              <div className="bg-amber-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md card-with-logo">
-                <Phone className="w-10 h-10 text-amber-600" />
+              <div className="card-gold w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md card-with-logo">
+                <Phone className="w-10 h-10 text-amber-700" />
               </div>
               <h3 className="heading-sm mb-4">מחירים הוגנים</h3>
               <p className="text-body-sm">

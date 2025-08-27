@@ -100,7 +100,7 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
               {tags.slice(0, 3).map((tag, i) => (
                 <span
                   key={`${tag}-${i}`}
-                  className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full font-medium border border-blue-200"
+                  className="bg-gradient-to-r from-blue-50 to-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full font-medium border border-blue-200 shadow-sm"
                 >
                   {tag}
                 </span>
@@ -115,7 +115,7 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
 
           {/* Details Section */}
           {(showDetails || showFullDetails) && (
-            <div className="mb-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
+            <div className="mb-4 p-4 bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl border border-blue-100 shadow-inner">
               {door?.description && (
                 <p className="text-gray-700 mb-4 leading-relaxed">
                   {door.description}
@@ -125,9 +125,9 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
               <div className="grid grid-cols-1 gap-3">
                 {materials.length > 0 && (
                   <div className="flex items-start gap-2">
-                    <Wrench className="w-4 h-4 text-blue-600 mt-1 flex-shrink-0" />
+                    <Wrench className="w-4 h-4 text-blue-700 mt-1 flex-shrink-0" />
                     <div>
-                      <span className="font-semibold text-gray-800 text-sm">חומרים: </span>
+                      <span className="font-semibold text-blue-800 text-sm">חומרים: </span>
                       <span className="text-gray-600 text-sm">{materials.join(", ")}</span>
                     </div>
                   </div>
@@ -135,9 +135,9 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
 
                 {colors.length > 0 && (
                   <div className="flex items-start gap-2">
-                    <Palette className="w-4 h-4 text-blue-600 mt-1 flex-shrink-0" />
+                    <Palette className="w-4 h-4 text-emerald-600 mt-1 flex-shrink-0" />
                     <div>
-                      <span className="font-semibold text-gray-800 text-sm">צבעים: </span>
+                      <span className="font-semibold text-emerald-800 text-sm">צבעים: </span>
                       <span className="text-gray-600 text-sm">{colors.join(", ")}</span>
                     </div>
                   </div>
@@ -145,9 +145,9 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
 
                 {sizes.length > 0 && (
                   <div className="flex items-start gap-2">
-                    <Ruler className="w-4 h-4 text-blue-600 mt-1 flex-shrink-0" />
+                    <Ruler className="w-4 h-4 text-amber-600 mt-1 flex-shrink-0" />
                     <div>
-                      <span className="font-semibold text-gray-800 text-sm">מידות: </span>
+                      <span className="font-semibold text-amber-800 text-sm">מידות: </span>
                       <span className="text-gray-600 text-sm">{sizes.join(", ")} ס"מ</span>
                     </div>
                   </div>
@@ -155,9 +155,9 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
 
                 {addons.length > 0 && (
                   <div className="flex items-start gap-2">
-                    <Star className="w-4 h-4 text-blue-600 mt-1 flex-shrink-0" />
+                    <Star className="w-4 h-4 text-yellow-500 mt-1 flex-shrink-0" />
                     <div>
-                      <span className="font-semibold text-gray-800 text-sm">תוספות: </span>
+                      <span className="font-semibold text-yellow-700 text-sm">תוספות: </span>
                       <span className="text-gray-600 text-sm">{addons.join(", ")}</span>
                     </div>
                   </div>
