@@ -6,7 +6,7 @@ import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { businessInfo as defaultBusinessInfo } from '../data/business';
 import { createWhatsAppUrl, getWhatsAppMessage } from '../utils/whatsapp';
-import { DoorCard } from '../components/DoorCard';
+import   DoorCard  from '../components/DoorCard';
 import { useFirestore } from '../hooks/useFirestore';
 import { Door, BusinessInfo } from '../types';
 import { doorsData as defaultDoorsData } from '../data/doors';
