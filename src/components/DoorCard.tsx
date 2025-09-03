@@ -98,7 +98,6 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
         <div className="p-6">
           {/* Header */}
           <div className="mb-4">
-            <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">
             <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300">
               {door?.name}
             </h3>
@@ -190,9 +189,9 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
           )}
 
 
-
-      
-              
+          {/* Actions */}
+          <div className="flex items-center justify-between">
+            <div>
               <Link
                 to={`/catalog/${door?.slug}`}
                 className="text-sm text-gray-500 hover:text-blue-600 transition-colors duration-300 font-medium"

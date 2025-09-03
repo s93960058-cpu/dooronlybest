@@ -20,7 +20,7 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
   const businessInfo = businessData.length > 0 ? businessData[0] : defaultBusinessInfo;
 
   const message = getWhatsAppMessage(context, doorName);
-  const url = createWhatsAppUrl(businessInfo.whatsapp, message);
+  const url = createWhatsAppUrl(businessInfo.phone, message);
 
   return (
     <a

@@ -30,6 +30,7 @@ const Home: React.FC = () => {
     .slice(0, 3);
 
   const whatsappUrl = createWhatsAppUrl(currentBusinessInfo.whatsapp, getWhatsAppMessage());
+  const whatsappUrl = createWhatsAppUrl(currentBusinessInfo.phone, getWhatsAppMessage());
 
   return (
     <>
@@ -87,7 +88,7 @@ const Home: React.FC = () => {
             </a>
             <Link
               to="/catalog"
-              className="bg-white/95 backdrop-blur-sm text-blue-900 hover:bg-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95"
+              className="bg-white/95 backdrop-blur-sm text-orange-900 hover:bg-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95"
             >
               לצפייה בקטלוג
             </Link>
@@ -112,7 +113,7 @@ const Home: React.FC = () => {
               <p className="text-body">טוען דלתות...</p>
             </div>
           ) : (
-            <DoorCarousel doors={featuredDoors} />
+            <DoorCarousel doors={featuredDoors} title="הדלתות המובילות שלנו" />
           )}
           
           <div className="text-center mt-12">
@@ -140,8 +141,8 @@ const Home: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="card-blue w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
-                <Award className="w-10 h-10 text-blue-600" />
+              <div className="bg-gradient-to-br from-orange-100 to-orange-200 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
+                <Award className="w-10 h-10 text-orange-600" />
               </div>
               <h3 className="heading-sm mb-4">איכות חומרים גבוהה</h3>
               <p className="text-body-sm">
@@ -150,8 +151,8 @@ const Home: React.FC = () => {
             </div>
             
             <div className="text-center">
-              <div className="card-emerald w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
-                <Users className="w-10 h-10 text-green-600" />
+              <div className="bg-gradient-to-br from-orange-100 to-orange-200 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
+                <Users className="w-10 h-10 text-orange-600" />
               </div>
               <h3 className="heading-sm mb-4">התקנה אחראית</h3>
               <p className="text-body-sm">
@@ -160,8 +161,8 @@ const Home: React.FC = () => {
             </div>
             
             <div className="text-center">
-              <div className="card-slate w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
-                <Shield className="w-10 h-10 text-emerald-600" />
+              <div className="bg-gradient-to-br from-orange-100 to-orange-200 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
+                <Shield className="w-10 h-10 text-orange-600" />
               </div>
               <h3 className="heading-sm mb-4">אחריות ושירות</h3>
               <p className="text-body-sm">
@@ -170,8 +171,8 @@ const Home: React.FC = () => {
             </div>
             
             <div className="text-center">
-              <div className="card-gold w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
-                <Phone className="w-10 h-10 text-amber-700" />
+              <div className="bg-gradient-to-br from-orange-100 to-orange-200 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
+                <Phone className="w-10 h-10 text-orange-600" />
               </div>
               <h3 className="heading-sm mb-4">מחירים הוגנים</h3>
               <p className="text-body-sm">
@@ -236,13 +237,13 @@ const Home: React.FC = () => {
             </a>
             <a
               href={`tel:${currentBusinessInfo.phone}`}
-              className="bg-white/95 backdrop-blur-sm text-blue-900 hover:bg-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95"
+              className="bg-white/95 backdrop-blur-sm text-orange-900 hover:bg-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95"
             >
               התקשרו עכשיו
             </a>
             <Link
               to="/contact"
-              className="border-2 border-white/80 text-white hover:bg-white hover:text-blue-900 px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95 backdrop-blur-sm"
+              className="border-2 border-white/80 text-white hover:bg-white hover:text-orange-900 px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95 backdrop-blur-sm"
             >
               טופס יצירת קשר
             </Link>

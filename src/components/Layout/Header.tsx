@@ -68,7 +68,6 @@ const Header: React.FC = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`text-gray-700 hover:text-blue-600 transition-all duration-300 font-medium px-3 py-2 rounded-lg hover:bg-blue-50 ${
                 className={`text-gray-700 hover:text-orange-600 transition-all duration-300 font-medium px-3 py-2 rounded-lg hover:bg-orange-50 ${
                   isActive(item.href) ? 'text-orange-600 font-semibold bg-orange-50 shadow-sm' : ''
                 }`}
@@ -81,7 +80,7 @@ const Header: React.FC = () => {
           {/* WhatsApp Button */}
           <div className="hidden md:block">
             <a
-              href={createWhatsAppUrl(businessInfo.whatsapp, getWhatsAppMessage())}
+              href={createWhatsAppUrl(businessInfo.phone, getWhatsAppMessage())}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-contact shadow-lg hover:shadow-xl"
@@ -109,7 +108,6 @@ const Header: React.FC = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`text-gray-700 hover:text-blue-600 transition-all duration-300 font-medium px-4 py-3 rounded-xl hover:bg-blue-50 ${
                   className={`text-gray-700 hover:text-orange-600 transition-all duration-300 font-medium px-4 py-3 rounded-xl hover:bg-orange-50 ${
                     isActive(item.href) ? 'text-orange-600 font-semibold bg-orange-50' : ''
                   }`}
@@ -119,7 +117,7 @@ const Header: React.FC = () => {
                 </Link>
               ))}
               <a
-                href={createWhatsAppUrl(businessInfo.whatsapp, getWhatsAppMessage())}
+                href={createWhatsAppUrl(businessInfo.phone, getWhatsAppMessage())}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-success w-full justify-center mt-4 shadow-lg"

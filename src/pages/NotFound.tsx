@@ -12,6 +12,7 @@ const NotFound: React.FC = () => {
   const businessInfo = businessData.length > 0 ? businessData[0] : defaultBusinessInfo;
 
   const whatsappUrl = createWhatsAppUrl(businessInfo.whatsapp, getWhatsAppMessage());
+  const whatsappUrl = createWhatsAppUrl(businessInfo.phone, getWhatsAppMessage());
 
   return (
     <>

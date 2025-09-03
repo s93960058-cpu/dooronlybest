@@ -40,7 +40,7 @@ const DoorDetail: React.FC = () => {
   }
 
   const whatsappUrl = createWhatsAppUrl(
-    businessInfo.whatsapp,
+    businessInfo.phone,
     getWhatsAppMessage('catalog', door.name)
   );
 
@@ -122,7 +122,7 @@ const DoorDetail: React.FC = () => {
               <img
                 src={door.images[selectedImageIndex]?.url}
                 alt={door.images[selectedImageIndex]?.alt || door.name}
-                className="w-full h-full object-cover"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
               />
             </div>
 
@@ -171,7 +171,7 @@ const DoorDetail: React.FC = () => {
             </div>
 
             {/* Price */}
-            {/* Price removed from public display */}
+            {/* מחירים הוסרו מהתצוגה הציבורית */}
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
