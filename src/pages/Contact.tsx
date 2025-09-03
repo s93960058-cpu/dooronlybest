@@ -61,7 +61,6 @@ const Contact: React.FC = () => {
   };
 
   const whatsappUrl = createWhatsAppUrl(businessInfo.whatsapp, getWhatsAppMessage('contact'));
-  const whatsappUrl = createWhatsAppUrl(businessInfo.phone, getWhatsAppMessage('contact'));
 
   return (
     <>
