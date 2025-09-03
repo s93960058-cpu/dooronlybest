@@ -60,6 +60,7 @@ export interface BusinessInfo {
   address: string;
   phone: string;
   email: string;
+  whatsapp?: string;
 }
 
 // Category interface

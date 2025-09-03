@@ -79,7 +79,6 @@ const Footer: React.FC = () => {
               </a>
               <a
                 href={createWhatsAppUrl(currentBusinessInfo.whatsapp, getWhatsAppMessage())}
-                href={createWhatsAppUrl(currentBusinessInfo.phone, getWhatsAppMessage())}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors duration-200 mt-4"
