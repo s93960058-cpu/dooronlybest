@@ -99,6 +99,7 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
           {/* Header */}
           <div className="mb-4">
             <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">
+            <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300">
               {door?.name}
             </h3>
             {door?.short_description && (
