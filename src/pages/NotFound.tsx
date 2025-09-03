@@ -10,7 +10,6 @@ import { BusinessInfo } from '../types';
 const NotFound: React.FC = () => {
   const { data: businessData } = useFirestore<BusinessInfo>('business');
   const businessInfo = businessData.length > 0 ? businessData[0] : defaultBusinessInfo;
-
   const whatsappUrl = createWhatsAppUrl(businessInfo.phone, getWhatsAppMessage());
 
   return (

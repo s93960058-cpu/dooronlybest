@@ -30,7 +30,6 @@ const Home: React.FC = () => {
     .slice(0, 3);
 
   const whatsappUrl = createWhatsAppUrl(currentBusinessInfo.whatsapp, getWhatsAppMessage());
-  const whatsappUrl = createWhatsAppUrl(currentBusinessInfo.phone, getWhatsAppMessage());
 
   return (
     <>
