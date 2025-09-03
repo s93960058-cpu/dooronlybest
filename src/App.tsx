@@ -7,6 +7,7 @@ import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import AccessibilityMenu from './components/AccessibilityMenu';
+import PWAInstallButton from './components/PWAInstallButton';
 import Home from './pages/Home';
 import Catalog from './pages/Catalog';
 import DoorDetail from './pages/DoorDetail';
@@ -39,6 +40,7 @@ function App() {
               <Footer />
               <WhatsAppButton />
               <AccessibilityMenu />
+              <PWAInstallButton />
             </div>
           </Router>
         </AuthProvider>
