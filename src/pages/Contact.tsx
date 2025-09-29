@@ -268,7 +268,6 @@ const Contact: React.FC = () => {
                   <div>
                     <div className="font-semibold text-gray-900">שעות פעילות</div>
                     <div className="text-gray-600">{businessInfo.hours}</div>
-                    <div className="text-sm text-gray-500">שישי-שבת: סגור</div>
                   </div>
                 </div>
               </div>
