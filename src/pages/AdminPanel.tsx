@@ -884,8 +884,6 @@ const AdminPanel: React.FC = () => {
                   >
                     <option value="פנים">פנים</option>
                     <option value="חוץ">חוץ</option>
-                    <option value="ביטחון">ביטחון</option>
-                    <option value="ממ״ד">ממ״ד</option>
                     <option value="זכוכית">זכוכית</option>
                   </select>
                 </div>
@@ -1200,7 +1198,6 @@ const AdminPanel: React.FC = () => {
                   >
                     <option value="פנים">פנים</option>
                     <option value="חוץ">חוץ</option>
-                    <option value="ממ״ד">ממ״ד</option>
                     <option value="זכוכית">זכוכית</option>
                   </select>
                 </div>
