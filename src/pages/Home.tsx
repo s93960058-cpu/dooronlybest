@@ -51,7 +51,7 @@ const Home: React.FC = () => {
               "addressLocality": "ערד",
               "addressCountry": "IL"
             },
-            "openingHours": "Su-Th 09:00-18:00",
+            "openingHours": "Su-Th 09:00-18:00 , fri 09:00-13:00",
             "image": ["https://onlybest.co.il/image.png"]
           })}
         </script>
