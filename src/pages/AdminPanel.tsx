@@ -46,7 +46,7 @@ const AdminPanel: React.FC = () => {
     heroSubtitle: 'בחירה מדויקת, התקנה מקצועית, שירות מהיר',
     aboutTitle: 'אודות Only Best',
     aboutDescription: 'מאז 2025 אנחנו מספקים פתרונות דלתות מתקדמים ואיכותיים',
-    metaKeywords: 'דלתות, דלת פלדה, דלת עץ, דלת ביטחון, התקנת דלתות, ערד',
+    metaKeywords: 'דלתות,  דלת עץ,  התקנת דלתות, ערד',
     socialFacebook: '',
     socialInstagram: '',
     socialWhatsapp: '+972583522191'
@@ -1200,7 +1200,6 @@ const AdminPanel: React.FC = () => {
                   >
                     <option value="פנים">פנים</option>
                     <option value="חוץ">חוץ</option>
-                    <option value="ביטחון">ביטחון</option>
                     <option value="ממ״ד">ממ״ד</option>
                     <option value="זכוכית">זכוכית</option>
                   </select>
