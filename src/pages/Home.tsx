@@ -47,7 +47,7 @@ const Home: React.FC = () => {
             "telephone": currentBusinessInfo.phone,
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": "יהודה 6",
+              "streetAddress": "התעשייה 6",
               "addressLocality": "ערד",
               "addressCountry": "IL"
             },
