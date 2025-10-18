@@ -60,50 +60,58 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <section className="relative hero-gradient text-white overflow-hidden min-h-screen flex items-center">
         {/* Premium Background Elements */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/5 to-black/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/30"></div>
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-20 w-32 h-32 bg-white/8 rounded-full animate-float blur-sm"></div>
-          <div className="absolute top-40 right-32 w-24 h-24 bg-white/6 rounded-full animate-float-delayed blur-sm"></div>
-          <div className="absolute bottom-32 left-1/3 w-20 h-20 bg-white/10 rounded-full animate-float blur-sm" style={{animationDelay: '3s'}}></div>
-          <div className="absolute top-1/3 right-1/4 w-16 h-16 bg-white/5 rounded-full animate-float-delayed blur-sm" style={{animationDelay: '4s'}}></div>
+          <div className="absolute top-20 left-20 w-40 h-40 bg-orange-400/15 rounded-full animate-float blur-xl"></div>
+          <div className="absolute top-40 right-32 w-32 h-32 bg-amber-400/10 rounded-full animate-float-delayed blur-xl"></div>
+          <div className="absolute bottom-32 left-1/3 w-28 h-28 bg-orange-300/20 rounded-full animate-float blur-2xl" style={{animationDelay: '3s'}}></div>
+          <div className="absolute top-1/3 right-1/4 w-24 h-24 bg-amber-300/12 rounded-full animate-float-delayed blur-xl" style={{animationDelay: '4s'}}></div>
+          <div className="absolute bottom-1/4 right-1/3 w-36 h-36 bg-orange-500/18 rounded-full animate-float blur-2xl" style={{animationDelay: '2s'}}></div>
         </div>
         
         <div className="relative container-professional text-center section-padding">
-          <h1 className="heading-xl mb-8 text-white drop-shadow-2xl">
-            Only Best - הכי טוב לבית שלך
+          <div className="inline-block mb-8 px-6 py-3 bg-white/10 backdrop-blur-md rounded-full border-2 border-white/30 shadow-2xl">
+            <span className="text-lg font-semibold text-white drop-shadow-lg">המומחים בדלתות איכותיות</span>
+          </div>
+          <h1 className="heading-xl mb-8 text-white drop-shadow-2xl leading-tight">
+            <span className="block mb-4">Only Best</span>
+            <span className="block text-5xl lg:text-6xl text-orange-200 font-light">הכי טוב לבית שלך</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-12 max-w-4xl mx-auto text-white/90 leading-relaxed font-medium drop-shadow-lg">
-            בחירה מדויקת, התקנה מקצועית, שירות מהיר
+          <p className="text-2xl md:text-3xl mb-16 max-w-4xl mx-auto text-white/95 leading-relaxed font-light drop-shadow-lg">
+            בחירה מדויקת • התקנה מקצועית • שירות מהיר
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center max-w-2xl mx-auto">
+          <div className="flex flex-col sm:flex-row gap-8 justify-center max-w-3xl mx-auto">
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-success text-lg flex items-center justify-center gap-3 animate-pulse-glow"
+              className="btn-success text-xl flex items-center justify-center gap-4 animate-pulse-glow px-12 py-5 font-bold"
             >
-              <MessageCircle className="w-5 h-5" />
+              <MessageCircle className="w-6 h-6" />
               <span>דברו איתנו בוואטסאפ</span>
             </a>
             <Link
               to="/catalog"
-              className="bg-white/95 backdrop-blur-sm text-orange-900 hover:bg-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95"
+              className="bg-white/98 backdrop-blur-sm text-gray-900 hover:bg-white px-12 py-5 rounded-2xl text-xl font-bold transition-all duration-500 shadow-2xl hover:shadow-white/30 transform hover:scale-110 hover:-translate-y-1 active:scale-95 border-2 border-white/50"
             >
-              לצפייה בקטלוג
+              לצפייה בקטלוג המלא
             </Link>
           </div>
         </div>
       </section>
 
       {/* Featured Doors */}
-      <section className="section-padding bg-gradient-to-b from-white to-gray-50">
+      <section className="section-padding bg-gradient-to-b from-white via-gray-50 to-white">
         <div className="container-professional">
-          <div className="text-center mb-12">
-            <h2 className="heading-lg mb-6">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4 px-6 py-2 bg-orange-100 rounded-full border border-orange-200">
+              <span className="text-sm font-bold text-orange-800 tracking-wide">הקולקציה המיוחדת שלנו</span>
+            </div>
+            <h2 className="heading-lg mb-8 bg-gradient-to-r from-gray-900 via-orange-900 to-gray-900 bg-clip-text text-transparent">
               הדלתות המובילות שלנו
             </h2>
-            <p className="text-body max-w-3xl mx-auto">
-              מבחר מעולה של דלתות איכותיות לכל צורך 
+            <p className="text-body max-w-3xl mx-auto text-gray-700">
+              מבחר מעולה של דלתות איכותיות לכל צורך ולכל סגנון
             </p>
           </div>
           
@@ -127,53 +135,56 @@ const Home: React.FC = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-gradient-to-b from-white via-orange-50/30 to-white">
         <div className="container-professional">
-          <div className="text-center mb-12">
-            <h2 className="heading-lg mb-6">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4 px-6 py-2 bg-orange-100 rounded-full border border-orange-200">
+              <span className="text-sm font-bold text-orange-800 tracking-wide">היתרונות שלנו</span>
+            </div>
+            <h2 className="heading-lg mb-8 bg-gradient-to-r from-gray-900 via-orange-900 to-gray-900 bg-clip-text text-transparent">
               למה Only Best?
             </h2>
-            <p className="text-body max-w-3xl mx-auto">
+            <p className="text-body max-w-3xl mx-auto text-gray-700 font-medium">
               אנחנו מתמחים במתן פתרונות דלתות מקיפים עם דגש על איכות ושירות
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="bg-gradient-to-br from-orange-100 to-orange-200 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
-                <Award className="w-10 h-10 text-orange-600" />
+            <div className="text-center group">
+              <div className="bg-gradient-to-br from-orange-100 via-orange-200 to-amber-200 w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl hover:shadow-orange-500/50 transition-all duration-500 transform hover:scale-110 hover:-translate-y-2 hover:rotate-6 border-2 border-orange-300/50">
+                <Award className="w-12 h-12 text-orange-700 transition-transform duration-500 group-hover:scale-125" />
               </div>
-              <h3 className="heading-sm mb-4">איכות חומרים גבוהה</h3>
+              <h3 className="heading-sm mb-4 font-bold">איכות חומרים גבוהה</h3>
               <p className="text-body-sm">
                 אנחנו עובדים עם יצרנים מובילים ומשתמשים רק בחומרים איכותיים
               </p>
             </div>
             
-            <div className="text-center">
-              <div className="bg-gradient-to-br from-orange-100 to-orange-200 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
-                <Users className="w-10 h-10 text-orange-600" />
+            <div className="text-center group">
+              <div className="bg-gradient-to-br from-blue-100 via-blue-200 to-cyan-200 w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl hover:shadow-blue-500/50 transition-all duration-500 transform hover:scale-110 hover:-translate-y-2 hover:rotate-6 border-2 border-blue-300/50">
+                <Users className="w-12 h-12 text-blue-700 transition-transform duration-500 group-hover:scale-125" />
               </div>
-              <h3 className="heading-sm mb-4">התקנה אחראית</h3>
+              <h3 className="heading-sm mb-4 font-bold">התקנה אחראית</h3>
               <p className="text-body-sm">
                 צוות מקצועי ומנוסה מבצע התקנה מדויקת ומקפיד על פרטים הקטנים
               </p>
             </div>
             
-            <div className="text-center">
-              <div className="bg-gradient-to-br from-orange-100 to-orange-200 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
-                <Shield className="w-10 h-10 text-orange-600" />
+            <div className="text-center group">
+              <div className="bg-gradient-to-br from-emerald-100 via-emerald-200 to-teal-200 w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl hover:shadow-emerald-500/50 transition-all duration-500 transform hover:scale-110 hover:-translate-y-2 hover:rotate-6 border-2 border-emerald-300/50">
+                <Shield className="w-12 h-12 text-emerald-700 transition-transform duration-500 group-hover:scale-125" />
               </div>
-              <h3 className="heading-sm mb-4">אחריות ושירות</h3>
+              <h3 className="heading-sm mb-4 font-bold">אחריות ושירות</h3>
               <p className="text-body-sm">
                 אחריות מלאה על כל המוצרים ושירות לאחר המכירה מהמובילים בתחום
               </p>
             </div>
             
-            <div className="text-center">
-              <div className="bg-gradient-to-br from-orange-100 to-orange-200 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
-                <Phone className="w-10 h-10 text-orange-600" />
+            <div className="text-center group">
+              <div className="bg-gradient-to-br from-amber-100 via-amber-200 to-yellow-200 w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl hover:shadow-amber-500/50 transition-all duration-500 transform hover:scale-110 hover:-translate-y-2 hover:rotate-6 border-2 border-amber-300/50">
+                <Phone className="w-12 h-12 text-amber-700 transition-transform duration-500 group-hover:scale-125" />
               </div>
-              <h3 className="heading-sm mb-4">מחירים הוגנים</h3>
+              <h3 className="heading-sm mb-4 font-bold">מחירים הוגנים</h3>
               <p className="text-body-sm">
                 יחס איכות מחיר מעולה עם שקיפות מלאה בתמחור ובלי עלויות נסתרות
               </p>

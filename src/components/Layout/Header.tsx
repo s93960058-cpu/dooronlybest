@@ -41,20 +41,20 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-white/95 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-gray-100">
+    <header className="bg-white/98 backdrop-blur-xl shadow-2xl sticky top-0 z-50 border-b-2 border-gray-100/50">
       <div className="container-professional">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div 
             onClick={handleLogoClick}
             className="flex items-center space-x-3 space-x-reverse cursor-pointer select-none group logo-container"
           >
-            <img 
-              src="/image.png" 
-              alt="Only Best Logo" 
-              className="w-14 h-14 object-contain transition-transform duration-500 group-hover:scale-125 group-hover:rotate-12 drop-shadow-xl"
+            <img
+              src="/image.png"
+              alt="Only Best Logo"
+              className="w-16 h-16 object-contain transition-transform duration-700 group-hover:scale-125 group-hover:rotate-12 drop-shadow-2xl"
             />
-            <span className="font-bold text-2xl text-gray-900 tracking-tight">Only Best</span>
+            <span className="font-bold text-3xl bg-gradient-to-r from-gray-900 via-orange-900 to-gray-900 bg-clip-text text-transparent tracking-tight">Only Best</span>
             {logoClickCount > 0 && logoClickCount < 10 && (
               <span className="text-xs text-gray-400 mr-3 font-mono">
                 {logoClickCount}/10
