@@ -38,7 +38,7 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
     <>
       <div className="door-card group">
         {/* Image Section */}
-        <div className="relative overflow-hidden">
+        <Link to={`/catalog/${door?.slug}`} className="block relative overflow-hidden">
           <img
             src={firstImage?.url || "/placeholder-door.jpg"}
             alt={firstImage?.alt || door?.name || "Door image"}
@@ -53,6 +53,7 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
                 <div className="flex gap-2">
                   <button
                     onClick={(e) => {
+                      e.preventDefault();
                       e.stopPropagation();
                       setShowImageModal(true);
                     }}
@@ -63,6 +64,7 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
                   </button>
                   <button
                     onClick={(e) => {
+                      e.preventDefault();
                       e.stopPropagation();
                       setShowDetails(!showDetails);
                     }}
@@ -92,7 +94,7 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
               </span>
             </div>
           )}
-        </div>
+        </Link>
 
         {/* Premium Content Section */}
         <div className="p-6">
@@ -190,20 +192,18 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
 
 
           {/* Actions */}
-          <div className="flex items-center justify-between">
-            <div>
-              <Link
-                to={`/catalog/${door?.slug}`}
-                className="text-sm text-gray-500 hover:text-blue-600 transition-colors duration-300 font-medium"
-              >
-                לפרטים מלאים ←
-              </Link>
-            </div>
+          <div className="flex items-center justify-between gap-4">
+            <Link
+              to={`/catalog/${door?.slug}`}
+              className="text-sm text-gray-500 hover:text-blue-600 transition-colors duration-300 font-medium flex-shrink-0"
+            >
+              לפרטים מלאים ←
+            </Link>
 
             {/* Premium Contact Button */}
             <button
               onClick={handleWhatsAppClick}
-              className="btn-contact shadow-lg hover:shadow-xl"
+              className="btn-contact shadow-lg hover:shadow-xl flex-shrink-0"
               title="פנייה בווטסאפ"
             >
               <MessageCircle className="w-4 h-4" />

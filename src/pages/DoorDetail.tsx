@@ -118,11 +118,11 @@ const DoorDetail: React.FC = () => {
           {/* Images */}
           <div>
             {/* Main Image */}
-            <div className="aspect-[4/5] mb-4 overflow-hidden rounded-lg">
+            <div className="aspect-[4/5] mb-4 overflow-hidden rounded-lg shadow-xl">
               <img
                 src={door.images[selectedImageIndex]?.url}
                 alt={door.images[selectedImageIndex]?.alt || door.name}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                className="w-full h-full object-cover"
               />
             </div>
 
