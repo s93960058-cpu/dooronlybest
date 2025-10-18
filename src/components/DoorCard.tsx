@@ -38,17 +38,18 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
     <>
       <div className="door-card group">
         {/* Image Section */}
-        <Link to={`/catalog/${door?.slug}`} className="block relative overflow-hidden">
+        <div className="relative overflow-hidden">
           <img
             src={firstImage?.url || "/placeholder-door.jpg"}
             alt={firstImage?.alt || door?.name || "Door image"}
-            className="door-card-image"
+            className="door-card-image cursor-pointer"
             loading="lazy"
+            onClick={() => window.location.href = `/catalog/${door?.slug}`}
           />
 
           {/* Premium Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
-            <div className="absolute bottom-4 left-4 right-4">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none">
+            <div className="absolute bottom-4 left-4 right-4 pointer-events-auto">
               <div className="flex items-center justify-between">
                 <div className="flex gap-2">
                   <button
@@ -79,7 +80,7 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
           </div>
 
           {/* Premium Category Badge */}
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-4 right-4 pointer-events-none">
             <span className="badge-primary shadow-lg backdrop-blur-sm">
               {door?.category}
             </span>
@@ -87,14 +88,14 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
 
           {/* Premium Priority Badge */}
           {door?.display_priority && door.display_priority > 8 && (
-            <div className="absolute top-4 left-4">
+            <div className="absolute top-4 left-4 pointer-events-none">
               <span className="badge-gold shadow-lg backdrop-blur-sm">
                 <Star className="w-3 h-3 ml-1" />
                 מומלץ
               </span>
             </div>
           )}
-        </Link>
+        </div>
 
         {/* Premium Content Section */}
         <div className="p-6">
