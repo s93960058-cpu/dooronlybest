@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Door } from "../types";
 import { MessageCircle, Eye, Info, Palette, Ruler, Wrench, Star, ChevronDown, ChevronUp } from "lucide-react";
 import { createWhatsAppUrl, getWhatsAppMessage } from "../utils/whatsapp";
@@ -18,6 +18,7 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
   const [showDetails, setShowDetails] = useState(showFullDetails);
   const { data: businessData } = useFirestore<BusinessInfo>("business");
   const business = businessData.length > 0 ? businessData[0] : defaultBusinessInfo;
+  const navigate = useNavigate();
 
   const handleWhatsAppClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -34,22 +35,33 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
   const sizes = door?.sizes ?? [];
   const addons = door?.addons ?? [];
 
+  const handleImageClick = (e: React.MouseEvent) => {
+    // אם הקליק היה על כפתור, אל תעשה כלום
+    const target = e.target as HTMLElement;
+    if (target.closest('button')) {
+      return;
+    }
+    navigate(`/catalog/${door?.slug}`);
+  };
+
   return (
     <>
       <div className="door-card group">
         {/* Image Section */}
-        <div className="relative overflow-hidden">
+        <div
+          className="relative overflow-hidden cursor-pointer"
+          onClick={handleImageClick}
+        >
           <img
             src={firstImage?.url || "/placeholder-door.jpg"}
             alt={firstImage?.alt || door?.name || "Door image"}
-            className="door-card-image cursor-pointer"
+            className="door-card-image"
             loading="lazy"
-            onClick={() => window.location.href = `/catalog/${door?.slug}`}
           />
 
           {/* Premium Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none">
-            <div className="absolute bottom-4 left-4 right-4 pointer-events-auto">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
+            <div className="absolute bottom-4 left-4 right-4">
               <div className="flex items-center justify-between">
                 <div className="flex gap-2">
                   <button
@@ -58,7 +70,7 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
                       e.stopPropagation();
                       setShowImageModal(true);
                     }}
-                    className="bg-white/90 backdrop-blur-sm hover:bg-white text-gray-800 p-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
+                    className="bg-white/90 backdrop-blur-sm hover:bg-white text-gray-800 p-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 z-10 relative"
                     title="צפה בתמונה מלאה"
                   >
                     <Eye className="w-5 h-5" />
@@ -69,7 +81,7 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
                       e.stopPropagation();
                       setShowDetails(!showDetails);
                     }}
-                    className="bg-white/90 backdrop-blur-sm hover:bg-white text-gray-800 p-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
+                    className="bg-white/90 backdrop-blur-sm hover:bg-white text-gray-800 p-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 z-10 relative"
                     title={showDetails ? "הסתר פרטים" : "הצג פרטים"}
                   >
                     {showDetails ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
@@ -80,7 +92,7 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
           </div>
 
           {/* Premium Category Badge */}
-          <div className="absolute top-4 right-4 pointer-events-none">
+          <div className="absolute top-4 right-4">
             <span className="badge-primary shadow-lg backdrop-blur-sm">
               {door?.category}
             </span>
@@ -88,7 +100,7 @@ const DoorCard: React.FC<DoorCardProps> = ({ door, showFullDetails = false }) =>
 
           {/* Premium Priority Badge */}
           {door?.display_priority && door.display_priority > 8 && (
-            <div className="absolute top-4 left-4 pointer-events-none">
+            <div className="absolute top-4 left-4">
               <span className="badge-gold shadow-lg backdrop-blur-sm">
                 <Star className="w-3 h-3 ml-1" />
                 מומלץ
