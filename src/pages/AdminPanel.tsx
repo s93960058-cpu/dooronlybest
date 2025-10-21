@@ -810,7 +810,7 @@ const AdminPanel: React.FC = () => {
                           value={siteSettings.socialWhatsapp}
                           onChange={(e) => setSiteSettings(prev => ({ ...prev, socialWhatsapp: e.target.value }))}
                           className="admin-input"
-                          placeholder="+972583522191"
+                          placeholder="+972505215859"
                         />
                       </div>
                     </div>
