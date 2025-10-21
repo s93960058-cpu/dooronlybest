@@ -49,7 +49,7 @@ const AdminPanel: React.FC = () => {
     metaKeywords: 'דלתות,  דלת עץ,  התקנת דלתות, ערד',
     socialFacebook: '',
     socialInstagram: '',
-    socialWhatsapp: '+972583522191'
+    socialWhatsapp: '+972505215859'
   });
 
   const { data: doors, loading: doorsLoading, addItem: addDoor, updateItem: updateDoor, deleteItem: deleteDoor } = useFirestore<Door>('doors');
@@ -81,7 +81,7 @@ const AdminPanel: React.FC = () => {
   const [businessInfo, setBusinessInfo] = useState<BusinessInfo>({
     name: 'Only Best',
     address: 'יהודה 6, ערד',
-    phone: '+972583522191',
+    phone: '+972505215859',
     email: 'info@onlybest.co.il',
     hours: 'ראשון-חמישי: 09:00-18:00'
   });
